@@ -1,4 +1,4 @@
-# YAOS (Yet Another Obsidian Synchronizer)
+# YAOS (Yet Another Obsidian Synchronizer) :arrows_clockwise:
 
 YAOS is a minimalist Obsidian plugin designed to provide a simple and intuitive Git synchronization experience for your Obsidian vault. It's inspired by the simplicity of Obsidian's paid sync functionality and aims to bring that same ease of use to users who prefer to privately manage their vault with Git.
 
