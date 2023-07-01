@@ -29,7 +29,7 @@ To install YAOS, follow these steps:
 
 ## Contributing
 
-Contributions to YAOS are welcome! Please see the [CONTRIBUTING.md](CONTRIBUTING.md) file for more information.
+Contributions to YAOS are welcome! Please see the [CONTRIBUTING.md](./CONTRIBUTING.md) file for more information.
 
 ## License
 
