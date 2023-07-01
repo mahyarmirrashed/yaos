@@ -7,6 +7,9 @@
   "author": "Mahyar Mirrashed <noreply@example.com>",
   "license": "MIT",
   "private": false,
+  "scripts": {
+    "dev": "node esbuild.config.mjs"
+  },
   "devDependencies": {
     "builtin-modules": "^3.3.0",
     "esbuild": "^0.18.11",
