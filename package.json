@@ -8,7 +8,7 @@
   "license": "MIT",
   "private": false,
   "scripts": {
-    "dev": "node esbuild.config.mjs",
+    "dev": "node scripts/esbuild.config.mjs",
     "precommit": "node scripts/update-project-version.js",
     "release": "release-it"
   },

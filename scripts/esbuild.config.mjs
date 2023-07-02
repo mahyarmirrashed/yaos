@@ -1,13 +1,17 @@
 import esbuild from "esbuild";
 import process from "process";
 import builtins from "builtin-modules";
+import { resolve } from "path";
 
 const PRODUCTION = "production";
 
 const buildingForProduction = process.argv[2] === PRODUCTION;
 
+const entryPoint = resolve(__dirname, "..", "src", "main.ts");
+const outFile = resolve(__dirname, "..", "main.js");
+
 const context = await esbuild.context({
-  entryPoints: ["src/main.ts"],
+  entryPoints: [entryPoint],
   bundle: true,
   external: [
     "obsidian",
@@ -30,7 +34,7 @@ const context = await esbuild.context({
   logLevel: "info",
   sourcemap: buildingForProduction ? false : "inline",
   treeShaking: true,
-  outfile: "main.js",
+  outfile: outFile,
 });
 
 if (buildingForProduction) {
