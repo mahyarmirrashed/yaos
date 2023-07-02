@@ -9,6 +9,7 @@
   "private": false,
   "scripts": {
     "dev": "node scripts/esbuild.config.mjs",
+    "format": "npx prettier --write scripts/ src/",
     "precommit": "node scripts/update-project-version.js",
     "release": "release-it"
   },
