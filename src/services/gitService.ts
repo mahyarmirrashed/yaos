@@ -2,6 +2,7 @@ import simpleGit, { SimpleGit } from "simple-git";
 
 export interface GitService {
   isGitInitialized(): Promise<boolean>;
+  isPathTracked(path: string): Promise<boolean>;
   isRemoteConfigured(): Promise<boolean>;
 }
 
@@ -22,6 +23,12 @@ export class SimpleGitService implements GitService {
     }
 
     return gitInitialized;
+  }
+
+  async isPathTracked(path: string): Promise<boolean> {
+    const log = await this.gitProvider.log({ file: path });
+
+    return log.all.length > 0;
   }
 
   async isRemoteConfigured(): Promise<boolean> {
