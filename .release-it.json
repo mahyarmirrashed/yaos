@@ -1,4 +1,7 @@
 {
+  "hooks": {
+    "before:git:commit": "yarn precommit"
+  },
   "git": {
     "requireBranch": true,
     "commitMessage": "chore(release): ${version}",
