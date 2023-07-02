@@ -8,6 +8,9 @@
     "module": "ESNext",
     "moduleResolution": "node",
     "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"]
+    },
 
     /* Emit */
     "newLine": "lf",
