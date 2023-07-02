@@ -3,7 +3,7 @@ import { GitignoreService } from "@/services/gitignoreService";
 import { PLUGIN_NAME } from "@/utils/constants";
 import logger from "@/utils/logger";
 
-import { FileSystemAdapter, Notice, Plugin } from "obsidian";
+import { FileSystemAdapter, Plugin } from "obsidian";
 
 const PLUGIN_ICON = "sync";
 
@@ -33,25 +33,24 @@ export default class YaosPlugin extends Plugin {
     return (this.app.vault.adapter as FileSystemAdapter).getBasePath();
   }
 
-  private showNotice(message: string): void {
-    new Notice(`${PLUGIN_NAME}: ${message}`);
-  }
-
   private async handleRibbonIconClick(_evt: MouseEvent) {
     if (!this.gitService || !this.gitignoreService) {
+      logger.fatal("Services were not initialized.");
       return;
     }
 
     if (await this.gitService.isGitInitialized()) {
-      this.showNotice("Vault is initialized as a Git repository.");
+      logger.debug("Vault is initialized as a Git repository.");
     } else {
-      this.showNotice("Vault is not initialized as a Git repository.");
+      logger.fatal("Vault is not initialized as a Git repository.");
+      return;
     }
 
     if (await this.gitService.isRemoteConfigured()) {
-      this.showNotice("Remote repository is configured.");
+      logger.debug("Remote repository is configured.");
     } else {
-      this.showNotice("Remote repository is not configured.");
+      logger.fatal("Remote repository is not configured.");
+      return;
     }
 
     await this.gitignoreService.ensureObsidianIgnored();
