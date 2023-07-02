@@ -21,21 +21,25 @@ export default class YaosPlugin extends Plugin {
     return (this.app.vault.adapter as FileSystemAdapter).getBasePath();
   }
 
+  showNotice(message: string): void {
+    new Notice(`${PLUGIN_NAME}: ${message}`);
+  }
+
   async handleRibbonIconClick(_evt: MouseEvent) {
     if (!this.gitService) {
       return;
     }
 
     if (await this.gitService.isGitInitialized()) {
-      new Notice("Vault is initialized as a Git repository.");
+      this.showNotice("Vault is initialized as a Git repository.");
     } else {
-      new Notice("Vault is not initialized as a Git repository.");
+      this.showNotice("Vault is not initialized as a Git repository.");
     }
 
     if (await this.gitService.isRemoteConfigured()) {
-      new Notice("Remote repository is configured.");
+      this.showNotice("Remote repository is configured.");
     } else {
-      new Notice("Remote repository is not configured.");
+      this.showNotice("Remote repository is not configured.");
     }
   }
 }
