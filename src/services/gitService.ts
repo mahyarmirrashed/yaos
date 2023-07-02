@@ -2,6 +2,7 @@ import simpleGit, { SimpleGit } from "simple-git";
 
 export interface GitService {
   isGitInitialized(): Promise<boolean>;
+  isRemoteConfigured(): Promise<boolean>;
 }
 
 export class SimpleGitService implements GitService {
@@ -21,5 +22,18 @@ export class SimpleGitService implements GitService {
     }
 
     return gitInitialized;
+  }
+
+  async isRemoteConfigured(): Promise<boolean> {
+    let remoteConfigured = false;
+
+    try {
+      const remotes = await this.gitProvider.listRemote(["--get-url"]);
+      remoteConfigured = !!remotes;
+    } catch (_err) {
+      remoteConfigured = false;
+    }
+
+    return remoteConfigured;
   }
 }
