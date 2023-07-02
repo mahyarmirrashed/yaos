@@ -1,11 +1,11 @@
 import { GitService, SimpleGitService } from "@/services/gitService";
 import { GitignoreService } from "@/services/gitignoreService";
+import { PLUGIN_NAME } from "@/utils/constants";
 import logger from "@/utils/logger";
 
 import { FileSystemAdapter, Notice, Plugin } from "obsidian";
 
 const PLUGIN_ICON = "sync";
-const PLUGIN_NAME = "YAOS";
 
 export default class YaosPlugin extends Plugin {
   private gitService?: GitService;
