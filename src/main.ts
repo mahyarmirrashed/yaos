@@ -31,5 +31,11 @@ export default class YaosPlugin extends Plugin {
     } else {
       new Notice("Vault is not initialized as a Git repository.");
     }
+
+    if (await this.gitService.isRemoteConfigured()) {
+      new Notice("Remote repository is configured.");
+    } else {
+      new Notice("Remote repository is not configured.");
+    }
   }
 }
