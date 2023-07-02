@@ -18,16 +18,16 @@ export default class YaosPlugin extends Plugin {
     );
   }
 
-  getBasePath(): string {
+  private getBasePath(): string {
     return (this.app.vault.adapter as FileSystemAdapter).getBasePath();
   }
 
-  showNotice(message: string): void {
+  private showNotice(message: string): void {
     new Notice(`${PLUGIN_NAME}: ${message}`);
   }
 
-  async handleRibbonIconClick(_evt: MouseEvent) {
     if (!this.gitService) {
+  private async handleRibbonIconClick(_evt: MouseEvent) {
       return;
     }
 
