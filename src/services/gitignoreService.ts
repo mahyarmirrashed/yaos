@@ -1,4 +1,5 @@
 import { GitService } from "@/services/gitService";
+import logger from "@/utils/logger";
 
 import { promises as fs } from "fs";
 import { resolve } from "path";
@@ -12,7 +13,9 @@ export class GitignoreService {
   private gitignorePath: string;
 
   constructor(private basePath: string, private gitService: GitService) {
+    logger.debug("Initializing GitignoreService...");
     this.gitignorePath = resolve(basePath, GITIGNORE_FILE_NAME);
+    logger.debug("GitignoreService initialized.");
   }
 
   private async ensureGitignoreExists() {

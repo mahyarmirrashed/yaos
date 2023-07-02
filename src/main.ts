@@ -1,5 +1,7 @@
 import { GitService, SimpleGitService } from "@/services/gitService";
 import { GitignoreService } from "@/services/gitignoreService";
+import logger from "@/utils/logger";
+
 import { FileSystemAdapter, Notice, Plugin } from "obsidian";
 
 const PLUGIN_ICON = "sync";
@@ -10,6 +12,8 @@ export default class YaosPlugin extends Plugin {
   private gitignoreService?: GitignoreService;
 
   async onload() {
+    logger.debug(`Initializing ${PLUGIN_NAME} plugin...`);
+
     this.gitService = new SimpleGitService(this.getBasePath());
     this.gitignoreService = new GitignoreService(
       this.getBasePath(),
@@ -21,6 +25,8 @@ export default class YaosPlugin extends Plugin {
       PLUGIN_NAME,
       this.handleRibbonIconClick.bind(this)
     );
+
+    logger.debug(`${PLUGIN_NAME} plugin initialized.`);
   }
 
   private getBasePath(): string {

@@ -1,3 +1,4 @@
+import logger from "@/utils/logger";
 import simpleGit, { SimpleGit } from "simple-git";
 
 export interface GitService {
@@ -12,7 +13,9 @@ export class SimpleGitService implements GitService {
   private gitProvider: SimpleGit;
 
   constructor(private repoPath: string) {
+    logger.debug("Initializing SimpleGitService...");
     this.gitProvider = simpleGit(this.repoPath);
+    logger.debug("SimpleGitService initialized.");
   }
 
   async isGitInitialized() {
