@@ -13,7 +13,7 @@ const { version: newVersion } = packageJson;
 const { minAppVersion } = manifestJson;
 
 manifestJson.version = newVersion;
-versions[newVersion] = minAppVersion;
+versionsJson[newVersion] = minAppVersion;
 
 writeFileSync(manifestJsonPath, JSON.stringify(manifestJson, null, "  "));
 writeFileSync(versionsJsonPath, JSON.stringify(versionsJson, null, "  "));
