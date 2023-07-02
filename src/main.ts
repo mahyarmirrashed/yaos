@@ -7,9 +7,14 @@ const PLUGIN_NAME = "YAOS";
 
 export default class YaosPlugin extends Plugin {
   private gitService?: GitService;
+  private gitignoreService?: GitignoreService;
 
   async onload() {
     this.gitService = new SimpleGitService(this.getBasePath());
+    this.gitignoreService = new GitignoreService(
+      this.getBasePath(),
+      this.gitService
+    );
 
     this.addRibbonIcon(
       PLUGIN_ICON,
@@ -26,8 +31,8 @@ export default class YaosPlugin extends Plugin {
     new Notice(`${PLUGIN_NAME}: ${message}`);
   }
 
-    if (!this.gitService) {
   private async handleRibbonIconClick(_evt: MouseEvent) {
+    if (!this.gitService || !this.gitignoreService) {
       return;
     }
 
@@ -42,5 +47,7 @@ export default class YaosPlugin extends Plugin {
     } else {
       this.showNotice("Remote repository is not configured.");
     }
+
+    await this.gitignoreService.ensureObsidianIgnored();
   }
 }
