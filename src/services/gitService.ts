@@ -4,6 +4,8 @@ export interface GitService {
   isGitInitialized(): Promise<boolean>;
   isPathTracked(path: string): Promise<boolean>;
   isRemoteConfigured(): Promise<boolean>;
+
+  removePathFromHistory(path: string): Promise<void>;
 }
 
 export class SimpleGitService implements GitService {
@@ -42,5 +44,19 @@ export class SimpleGitService implements GitService {
     }
 
     return remoteConfigured;
+  }
+
+  async removePathFromHistory(path: string): Promise<void> {
+    await this.gitProvider.raw([
+      "filter-branch",
+      "--force",
+      "--index-filter",
+      `git rm --cached --ignore-unmatch ${path}`,
+      "--prune-empty",
+      "--tag-name-filter",
+      "cat",
+      "--",
+      "--all",
+    ]);
   }
 }
