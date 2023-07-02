@@ -3,7 +3,7 @@
     "before:git:commit": "yarn precommit"
   },
   "git": {
-    "requireBranch": true,
+    "requireBranch": "main",
     "commitMessage": "chore(release): ${version}",
     "tagName": "${version}",
     "tagAnnotation": "Release v${version}"
