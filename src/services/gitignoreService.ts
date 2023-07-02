@@ -22,14 +22,20 @@ export class GitignoreService {
     try {
       await fs.access(this.gitignorePath);
     } catch {
+      logger.warn(`${GITIGNORE_FILE_NAME} file did not exist... creating one.`);
+
       await fs.writeFile(this.gitignorePath, "");
     }
   }
 
   async ensureObsidianIgnored(): Promise<void> {
+    logger.debug(`Ensuring ${OBSIDIAN_FOLDER_NAME} directory is ignored...`);
+
     const obsidianFolderPath = resolve(this.basePath, OBSIDIAN_FOLDER_NAME);
 
     if (await this.gitService.isPathTracked(obsidianFolderPath)) {
+      logger.warn(`${OBSIDIAN_FOLDER_NAME} was being tracked.`);
+
       await this.gitService.removePathFromHistory(`${OBSIDIAN_FOLDER_NAME}*`);
 
       await this.ensureGitignoreExists();
