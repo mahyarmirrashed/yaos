@@ -9,6 +9,7 @@
   "private": false,
   "scripts": {
     "dev": "node esbuild.config.mjs",
+    "precommit": "node scripts/update-project-version.js",
     "release": "release-it"
   },
   "devDependencies": {
