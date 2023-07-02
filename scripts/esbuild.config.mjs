@@ -1,7 +1,7 @@
-import esbuild from "esbuild";
-import process from "process";
 import builtins from "builtin-modules";
-import { resolve, dirname } from "path";
+import esbuild from "esbuild";
+import { dirname, resolve } from "path";
+import process from "process";
 import { fileURLToPath } from "url";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));

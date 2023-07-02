@@ -1,5 +1,6 @@
-import { Notice, Plugin, FileSystemAdapter } from "obsidian";
 import { GitService, SimpleGitService } from "@/services/gitService";
+import { GitignoreService } from "@/services/gitignoreService";
+import { FileSystemAdapter, Notice, Plugin } from "obsidian";
 
 const PLUGIN_ICON = "sync";
 const PLUGIN_NAME = "YAOS";
