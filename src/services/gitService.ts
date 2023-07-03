@@ -21,8 +21,8 @@ export interface GitService {
   isRemoteAhead(): Promise<boolean>;
   isRemoteConfigured(): Promise<boolean>;
 
-  hasUnstagedChanges(): Promise<boolean>;
   removeObsidianPathFromHistory(): Promise<void>;
+  unstagedChangesExist(): Promise<boolean>;
 }
 
 export class SimpleGitService implements GitService {
@@ -115,10 +115,8 @@ export class SimpleGitService implements GitService {
     return remoteConfigured;
   }
 
-  async hasUnstagedChanges(): Promise<boolean> {
-    const status = await this.gitProvider.status();
+  async listUnmergedFiles(): Promise<string[]> {
 
-    return status.files.length > 0 || status.not_added.length > 0;
   }
 
   async removeObsidianPathFromHistory(): Promise<void> {
@@ -135,5 +133,10 @@ export class SimpleGitService implements GitService {
       "--",
       "--all",
     ]);
+  }
+  async unstagedChangesExist(): Promise<boolean> {
+    const status = await this.gitProvider.status();
+
+    return status.files.length > 0 || status.not_added.length > 0;
   }
 }
