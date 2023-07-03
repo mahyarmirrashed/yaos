@@ -1,5 +1,20 @@
 
 
+# [0.3.0](https://github.com/mahyarmirrashed/yaos/compare/0.2.0...0.3.0) (2023-07-03)
+
+
+### Features
+
+* add basic synchronizer method on controller for performing sync action ([918974e](https://github.com/mahyarmirrashed/yaos/commit/918974ec80fdb74cf7025f3a7899f532f164dc3c))
+* add method to check if local branch is ahead of remote branch ([c51d8a7](https://github.com/mahyarmirrashed/yaos/commit/c51d8a716412789377f2061d8739b8a039f6ae35))
+* add method to check if remote branch is ahead of local branch ([ce44aa9](https://github.com/mahyarmirrashed/yaos/commit/ce44aa9e2463a3df6b3294da4abebd31002f3626))
+* add method to force stop of rebase ([bee9df1](https://github.com/mahyarmirrashed/yaos/commit/bee9df18422fe48a82b553e6030591dc8230cb3c))
+* add method to list unmerged files in the repository ([002530e](https://github.com/mahyarmirrashed/yaos/commit/002530e402e95469bc8fde9ce3dbe8a1d405004c))
+* add method to name if currently rebasing repository ([c1a9f3d](https://github.com/mahyarmirrashed/yaos/commit/c1a9f3d408b5abb25f7db3ea9e1039bc45970f3f))
+* add method to pull with rebase merge conflict resolution ([82c9723](https://github.com/mahyarmirrashed/yaos/commit/82c9723a2da95748125359f6b2ba6d1fd3fb0087))
+* complete vault backup process ([90eef2b](https://github.com/mahyarmirrashed/yaos/commit/90eef2bc8156271843ba50e606a0859d5b19b581))
+* **sync:** add sync controller to manage logic and process ([fe5b771](https://github.com/mahyarmirrashed/yaos/commit/fe5b7717f22d70d948a346ec68ccf9a4008692b7))
+
 # [0.2.0](https://github.com/mahyarmirrashed/yaos/compare/0.1.0...0.2.0) (2023-07-03)
 
 
