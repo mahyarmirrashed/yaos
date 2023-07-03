@@ -25,6 +25,9 @@ export class GitignoreService {
       logger.warn(`${GITIGNORE_FILE_NAME} file did not exist... creating one.`);
 
       await fs.writeFile(this.gitignorePath, "");
+      await this.gitService.gitStage(GITIGNORE_FILE_NAME);
+      await this.gitService.gitCommit("chore: created `.gitignore`");
+      await this.gitService.gitPush();
     }
   }
 
