@@ -29,6 +29,20 @@ export default class YaosPlugin extends Plugin {
     logger.debug("Plugin initialized.");
   }
 
+  private async createVaultBackup(): Promise<void> {
+    if (await this.gitService?.hasUnstagedChanges()) {
+      logger.info("Unstaged changes detected. Creating backup...");
+
+      await this.gitService?.gitStageAll();
+      await this.gitService?.gitCommit();
+      await this.gitService?.gitPush();
+
+      logger.success("Created vault backup.");
+    } else {
+      logger.info("No changes in vault detected for backup.");
+    }
+  }
+
   private getBasePath(): string {
     return (this.app.vault.adapter as FileSystemAdapter).getBasePath();
   }
@@ -54,5 +68,6 @@ export default class YaosPlugin extends Plugin {
     }
 
     await this.gitignoreService.ensureObsidianIgnored();
+    await this.createVaultBackup();
   }
 }
