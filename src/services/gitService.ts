@@ -73,7 +73,7 @@ export class SimpleGitService implements GitService {
   async isPathCurrentlyTracked(path: string): Promise<boolean> {
     const status = await this.gitProvider.status();
 
-    return !status.not_added.includes(path);
+    return status.not_added.some((filePath) => filePath.startsWith(path));
   }
 
   async isPathPreviouslyTracked(path: string): Promise<boolean> {
