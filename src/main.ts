@@ -4,12 +4,14 @@ import { PLUGIN_NAME } from "@/utils/constants";
 import logger from "@/utils/logger";
 
 import { FileSystemAdapter, Plugin } from "obsidian";
+import SyncController from "./controllers/syncController";
 
 const PLUGIN_ICON = "sync";
 
 export default class YaosPlugin extends Plugin {
   private gitService?: GitService;
   private gitignoreService?: GitignoreService;
+  private syncController?: SyncController;
 
   async onload() {
     logger.debug("Initializing plugin...");
@@ -18,6 +20,10 @@ export default class YaosPlugin extends Plugin {
     this.gitignoreService = new GitignoreService(
       this.getBasePath(),
       this.gitService
+    );
+    this.syncController = new SyncController(
+      this.gitService,
+      this.gitignoreService
     );
 
     this.addRibbonIcon(
@@ -64,6 +70,8 @@ export default class YaosPlugin extends Plugin {
       logger.debug("Remote repository is configured.");
     } else {
       logger.fatal("Remote repository is not configured.");
+    } else if (!this.syncController) {
+      logger.fatal("Sync controller was not initialized.");
       return;
     }
 
