@@ -33,7 +33,7 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           token: ${{ secrets.PAT }}
-          name: Release ${{ env.VERSION }}
+          name: ${{ env.VERSION }}
           draft: true
           prerelease: false
           files: |
