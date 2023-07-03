@@ -12,7 +12,7 @@ export default class YaosPlugin extends Plugin {
   private gitignoreService?: GitignoreService;
 
   async onload() {
-    logger.debug(`Initializing ${PLUGIN_NAME} plugin...`);
+    logger.debug("Initializing plugin...");
 
     this.gitService = new SimpleGitService(this.getBasePath());
     this.gitignoreService = new GitignoreService(
@@ -26,7 +26,7 @@ export default class YaosPlugin extends Plugin {
       this.handleRibbonIconClick.bind(this)
     );
 
-    logger.debug(`${PLUGIN_NAME} plugin initialized.`);
+    logger.debug("Plugin initialized.");
   }
 
   private getBasePath(): string {
