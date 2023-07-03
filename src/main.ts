@@ -5,6 +5,7 @@ import logger from "@/utils/logger";
 
 import { FileSystemAdapter, Plugin } from "obsidian";
 import SyncController from "./controllers/syncController";
+import UnmergedFilesView from "./views/unmergedFilesView";
 
 const PLUGIN_ICON = "sync";
 
@@ -26,6 +27,11 @@ export default class YaosPlugin extends Plugin {
       this.gitignoreService
     );
 
+    this.addCommand({
+      id: `${PLUGIN_NAME.toLowerCase()}-show-unmerged`,
+      name: "Show unmerged/conflicting files",
+      callback: () => new UnmergedFilesView(this.app, this.gitService).open(),
+    });
     this.addRibbonIcon(
       PLUGIN_ICON,
       PLUGIN_NAME,
