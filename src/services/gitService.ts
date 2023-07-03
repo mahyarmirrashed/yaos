@@ -33,6 +33,8 @@ export class SimpleGitService implements GitService {
   async gitCommit(
     message = `chore: vault backup from ${dayjs().format("YYYY-MM-DD-HH:mm")}`
   ): Promise<void> {
+    logger.info(`Committing... ${message}`);
+
     await this.gitProvider.commit(message);
   }
 
