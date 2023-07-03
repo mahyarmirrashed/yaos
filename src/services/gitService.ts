@@ -18,6 +18,7 @@ export interface GitService {
   isLocalAhead(): Promise<boolean>;
   isPathCurrentlyTracked(path: string): Promise<boolean>;
   isPathPreviouslyTracked(path: string): Promise<boolean>;
+  isRemoteAhead(): Promise<boolean>;
   isRemoteConfigured(): Promise<boolean>;
 
   hasUnstagedChanges(): Promise<boolean>;
@@ -93,6 +94,12 @@ export class SimpleGitService implements GitService {
     const log = await this.gitProvider.log({ file: path });
 
     return log.all.length > 0;
+  }
+
+  async isRemoteAhead(): Promise<boolean> {
+    const status = await this.gitProvider.status();
+
+    return status.behind > 0;
   }
 
   async isRemoteConfigured(): Promise<boolean> {
