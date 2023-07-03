@@ -15,6 +15,7 @@ export interface GitService {
   gitUnstageAll(): Promise<void>;
 
   isGitInitialized(): Promise<boolean>;
+  isLocalAhead(): Promise<boolean>;
   isPathCurrentlyTracked(path: string): Promise<boolean>;
   isPathPreviouslyTracked(path: string): Promise<boolean>;
   isRemoteConfigured(): Promise<boolean>;
@@ -74,6 +75,12 @@ export class SimpleGitService implements GitService {
     }
 
     return gitInitialized;
+  }
+
+  async isLocalAhead(): Promise<boolean> {
+    const status = await this.gitProvider.status();
+
+    return status.ahead > 0;
   }
 
   async isPathCurrentlyTracked(path: string): Promise<boolean> {
