@@ -96,6 +96,8 @@ export class SimpleGitService implements GitService {
   }
 
   async removeObsidianPathFromHistory(): Promise<void> {
+    logger.info(`Removing all files in .obsidian/ from Git history.`);
+
     await this.gitProvider.raw([
       "filter-branch",
       "--force",
