@@ -24,8 +24,8 @@ export class GitignoreService {
     } catch {
       logger.warn(`${GITIGNORE_FILE_NAME} file did not exist... creating one.`);
 
-      await this.stageCommitAndPushGitignore();
       await fs.writeFile(this.gitignorePath, GITIGNORE_LINE);
+      await this.stageCommitAndPushGitignore("chore: created `.gitignore`");
     }
   }
 
@@ -45,14 +45,14 @@ export class GitignoreService {
       logger.warn(`${OBSIDIAN_FOLDER_NAME} was being tracked.`);
 
       await this.ensureGitignoreExists();
-      await this.stageCommitAndPushGitignore();
       await fs.appendFile(this.gitignorePath, `\n${GITIGNORE_LINE}`);
+      await this.stageCommitAndPushGitignore("chore: ignore `.obsidian/`");
     }
   }
 
-  private async stageCommitAndPushGitignore(): Promise<void> {
+  private async stageCommitAndPushGitignore(message: string): Promise<void> {
     await this.gitService.gitStage(GITIGNORE_FILE_NAME);
-    await this.gitService.gitCommit("chore: created `.gitignore`");
+    await this.gitService.gitCommit(message);
     await this.gitService.gitPush();
   }
 }
