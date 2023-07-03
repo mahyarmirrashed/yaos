@@ -31,6 +31,7 @@
   },
   "dependencies": {
     "consola": "^3.2.2",
+    "dayjs": "^1.11.9",
     "simple-git": "^3.19.1"
   }
 }
