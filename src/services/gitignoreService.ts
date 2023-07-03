@@ -33,10 +33,14 @@ export class GitignoreService {
 
     const obsidianFolderPath = resolve(this.basePath, OBSIDIAN_FOLDER_NAME);
 
-    if (await this.gitService.isPathTracked(obsidianFolderPath)) {
-      logger.warn(`${OBSIDIAN_FOLDER_NAME} was being tracked.`);
+    if (await this.gitService.isPathPreviouslyTracked(obsidianFolderPath)) {
+      logger.warn(`${OBSIDIAN_FOLDER_NAME} was being previously tracked.`);
 
       await this.gitService.removePathFromHistory(`${OBSIDIAN_FOLDER_NAME}*`);
+    }
+
+    if (await this.gitService.isPathCurrentlyTracked(obsidianFolderPath)) {
+      logger.warn(`${OBSIDIAN_FOLDER_NAME} was being tracked.`);
 
       await this.ensureGitignoreExists();
       await fs.appendFile(this.gitignorePath, GITIGNORE_LINE);
