@@ -3,7 +3,8 @@ import simpleGit, { SimpleGit } from "simple-git";
 
 export interface GitService {
   isGitInitialized(): Promise<boolean>;
-  isPathTracked(path: string): Promise<boolean>;
+  isPathCurrentlyTracked(path: string): Promise<boolean>;
+  isPathPreviouslyTracked(path: string): Promise<boolean>;
   isRemoteConfigured(): Promise<boolean>;
 
   removePathFromHistory(path: string): Promise<void>;
@@ -30,7 +31,13 @@ export class SimpleGitService implements GitService {
     return gitInitialized;
   }
 
-  async isPathTracked(path: string): Promise<boolean> {
+  async isPathCurrentlyTracked(path: string): Promise<boolean> {
+    const status = await this.gitProvider.status();
+
+    return !status.not_added.includes(path);
+  }
+
+  async isPathPreviouslyTracked(path: string): Promise<boolean> {
     const log = await this.gitProvider.log({ file: path });
 
     return log.all.length > 0;
