@@ -7,7 +7,7 @@ import { resolve } from "path";
 const GITIGNORE_FILE_NAME = ".gitignore";
 const OBSIDIAN_FOLDER_NAME = ".obsidian/";
 
-const GITIGNORE_LINE = "\n# ignore obsidian vault state\n.obsidian/\n";
+const GITIGNORE_LINE = "# ignore obsidian vault state\n.obsidian/\n";
 
 export class GitignoreService {
   private gitignorePath: string;
@@ -24,8 +24,8 @@ export class GitignoreService {
     } catch {
       logger.warn(`${GITIGNORE_FILE_NAME} file did not exist... creating one.`);
 
-      await fs.writeFile(this.gitignorePath, "");
       await this.stageCommitAndPushGitignore();
+      await fs.writeFile(this.gitignorePath, GITIGNORE_LINE);
     }
   }
 
@@ -45,8 +45,8 @@ export class GitignoreService {
       logger.warn(`${OBSIDIAN_FOLDER_NAME} was being tracked.`);
 
       await this.ensureGitignoreExists();
-      await fs.appendFile(this.gitignorePath, GITIGNORE_LINE);
       await this.stageCommitAndPushGitignore();
+      await fs.appendFile(this.gitignorePath, `\n${GITIGNORE_LINE}`);
     }
   }
 
