@@ -45,6 +45,7 @@ export class GitignoreService {
 
       await this.ensureGitignoreExists();
       await fs.appendFile(this.gitignorePath, GITIGNORE_LINE);
+      await this.stageCommitAndPushGitignore();
     }
   }
 
