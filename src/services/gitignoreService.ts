@@ -18,17 +18,6 @@ export class GitignoreService {
     logger.debug("GitignoreService initialized.");
   }
 
-  private async ensureGitignoreExists() {
-    try {
-      await fs.access(this.gitignorePath);
-    } catch {
-      logger.warn(`${GITIGNORE_FILE_NAME} file did not exist... creating one.`);
-
-      await fs.writeFile(this.gitignorePath, GITIGNORE_LINE);
-      await this.stageCommitAndPushGitignore("chore: created `.gitignore`");
-    }
-  }
-
   async ensureObsidianIgnored(): Promise<void> {
     logger.debug(`Ensuring ${OBSIDIAN_FOLDER_NAME} directory is ignored...`);
 
@@ -44,9 +33,17 @@ export class GitignoreService {
     if (await this.gitService.isPathCurrentlyTracked(obsidianFolderPath)) {
       logger.warn(`${OBSIDIAN_FOLDER_NAME} was being tracked.`);
 
-      await this.ensureGitignoreExists();
-      await fs.appendFile(this.gitignorePath, `\n${GITIGNORE_LINE}`);
-      await this.stageCommitAndPushGitignore("chore: ignore `.obsidian/`");
+      try {
+        await fs.access(this.gitignorePath);
+        await fs.appendFile(this.gitignorePath, `\n${GITIGNORE_LINE}`);
+        await this.stageCommitAndPushGitignore("chore: ignore `.obsidian/`");
+      } catch {
+        logger.warn(`${GITIGNORE_FILE_NAME} file did not exist.`);
+        logger.info(`Created ${GITIGNORE_FILE_NAME}.`);
+
+        await fs.writeFile(this.gitignorePath, GITIGNORE_LINE);
+        await this.stageCommitAndPushGitignore("chore: create `.gitignore`");
+      }
     }
   }
 
