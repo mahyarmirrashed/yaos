@@ -22,6 +22,7 @@ export interface GitService {
   isRemoteAhead(): Promise<boolean>;
   isRemoteConfigured(): Promise<boolean>;
 
+  listUnmergedFiles(): Promise<string[]>;
   removeObsidianPathFromHistory(): Promise<void>;
   stopRebasing(): Promise<void>;
   unstagedChangesExist(): Promise<boolean>;
@@ -124,7 +125,12 @@ export class SimpleGitService implements GitService {
   }
 
   async listUnmergedFiles(): Promise<string[]> {
+    const diff = await this.gitProvider.diff([
+      "--name-only",
+      "--diff-filter=U",
+    ]);
 
+    return diff.split("\n");
   }
 
   async removeObsidianPathFromHistory(): Promise<void> {
