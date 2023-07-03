@@ -64,11 +64,18 @@ export default class SyncController {
     new Notice("Please fix the changes and then click the sync button again.");
   }
 
+  private notifyUserAboutFailure(message: string): void {
+    new Notice(`FATAL: ${message}`);
+  }
+
   async sync(): Promise<void> {
     if (await this.gitService.isGitInitialized()) {
       logger.debug("Vault is initialized as a Git repository.");
     } else {
       logger.fatal("Vault is not initialized as a Git repository.");
+
+      this.notifyUserAboutFailure("Vault is not a Git repository.");
+
       return;
     }
 
@@ -76,6 +83,9 @@ export default class SyncController {
       logger.debug("Remote repository is configured.");
     } else {
       logger.fatal("Remote repository is not configured.");
+
+      this.notifyUserAboutFailure("Remote repository is not configured.");
+
       return;
     }
 
