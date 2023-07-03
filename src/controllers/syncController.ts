@@ -28,7 +28,7 @@ export default class SyncController {
     try {
       await this.gitService.gitPush();
 
-      logger.success("Created vault backup.");
+      this.notifyUserAboutBackup();
     } catch {
       logger.warn("Remote and local have conflicting changes!");
       logger.info("Starting rebase process...");
@@ -37,7 +37,7 @@ export default class SyncController {
         await this.gitService.gitPullWithRebase();
         await this.gitService.gitPush();
 
-        logger.success("Created vault backup.");
+        this.notifyUserAboutBackup();
       } catch {
         logger.error("Automatic rebasing failed.");
 
@@ -51,6 +51,12 @@ export default class SyncController {
 
     await this.gitService.gitStageAll();
     await this.gitService.gitCommit();
+  }
+
+  private notifyUserAboutBackup(): void {
+    new Notice("Successfully backed up vault!");
+
+    logger.success("Created vault backup.");
   }
 
   private notifyUserAboutConflicts(): void {
