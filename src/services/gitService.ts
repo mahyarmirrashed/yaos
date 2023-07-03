@@ -7,8 +7,8 @@ const DEFAULT_REMOTE = "origin";
 const DEFAULT_BRANCH = "main";
 
 export interface GitService {
-  gitPush(forcePush: boolean): Promise<void>;
   gitCommit(message: string): Promise<void>;
+  gitPush(forcePush?: boolean): Promise<void>;
   gitStage(...files: string[]): Promise<void>;
   gitStageAll(): Promise<void>;
   gitUnstageAll(): Promise<void>;
