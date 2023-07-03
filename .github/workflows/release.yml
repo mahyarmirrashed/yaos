@@ -1,0 +1,42 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "*"
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup NodeJS
+        uses: actions/setup-node@v2
+        with:
+          node-version: "16"
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Build production artifacts
+        run: yarn dev production
+
+      - name: Get version
+        id: package
+        run: echo "VERSION=$(node -p "require('./package.json').version")" >> $GITHUB_ENV
+
+      - name: Create Release and Upload Assets
+        uses: softprops/action-gh-release@v1
+        with:
+          token: ${{ secrets.PAT }}
+          name: Release ${{ env.VERSION }}
+          draft: true
+          prerelease: false
+          files: |
+            ./main.js
+            ./manifest.json
+            ./styles.css
