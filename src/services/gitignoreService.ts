@@ -51,7 +51,7 @@ export class GitignoreService {
   private async handlePreviouslyTrackedObsidian() {
     logger.warn(`${OBSIDIAN_FOLDER_NAME} was being previously tracked.`);
 
-    await this.gitService.removePathFromHistory(`${OBSIDIAN_FOLDER_NAME}*`);
+    await this.gitService.removeObsidianPathFromHistory();
     await this.gitService.gitPush(true);
   }
 

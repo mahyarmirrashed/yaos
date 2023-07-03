@@ -18,7 +18,7 @@ export interface GitService {
   isPathPreviouslyTracked(path: string): Promise<boolean>;
   isRemoteConfigured(): Promise<boolean>;
 
-  removePathFromHistory(path: string): Promise<void>;
+  removeObsidianPathFromHistory(): Promise<void>;
 }
 
 export class SimpleGitService implements GitService {
@@ -95,12 +95,12 @@ export class SimpleGitService implements GitService {
     return remoteConfigured;
   }
 
-  async removePathFromHistory(path: string): Promise<void> {
+  async removeObsidianPathFromHistory(): Promise<void> {
     await this.gitProvider.raw([
       "filter-branch",
       "--force",
       "--index-filter",
-      `git rm --cached --ignore-unmatch ${path}`,
+      `git rm --cached --ignore-unmatch .obsidian/*`,
       "--prune-empty",
       "--tag-name-filter",
       "cat",
