@@ -28,6 +28,8 @@ export class GitignoreService {
     if (await this.gitService.isPathCurrentlyTracked(OBSIDIAN_FOLDER_NAME)) {
       await this.handleCurrentlyTrackedObsidian();
     }
+
+    logger.debug(`The ${OBSIDIAN_FOLDER_NAME} directory should be ignored.`);
   }
 
   private async handleCurrentlyTrackedObsidian() {
