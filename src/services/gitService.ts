@@ -1,4 +1,6 @@
 import logger from "@/utils/logger";
+
+import dayjs from "dayjs";
 import simpleGit, { SimpleGit } from "simple-git";
 
 const DEFAULT_REMOTE = "origin";
@@ -6,6 +8,7 @@ const DEFAULT_BRANCH = "main";
 
 export interface GitService {
   gitPush(forcePush: boolean): Promise<void>;
+  gitCommit(message: string): Promise<void>;
   gitStage(...files: string[]): Promise<void>;
   gitStageAll(): Promise<void>;
   gitUnstageAll(): Promise<void>;
@@ -25,6 +28,12 @@ export class SimpleGitService implements GitService {
     logger.debug("Initializing SimpleGitService...");
     this.gitProvider = simpleGit(this.repoPath);
     logger.debug("SimpleGitService initialized.");
+  }
+
+  async gitCommit(
+    message = `chore: vault backup from ${dayjs().format("YYYY-MM-DD-HH:mm")}`
+  ): Promise<void> {
+    await this.gitProvider.commit(message);
   }
 
   async gitPush(forcePush = false): Promise<void> {
