@@ -18,6 +18,7 @@ export interface GitService {
   isPathPreviouslyTracked(path: string): Promise<boolean>;
   isRemoteConfigured(): Promise<boolean>;
 
+  hasUnstagedChanges(): Promise<boolean>;
   removeObsidianPathFromHistory(): Promise<void>;
 }
 
@@ -56,6 +57,12 @@ export class SimpleGitService implements GitService {
 
   async gitUnstageAll(): Promise<void> {
     this.gitProvider.reset();
+  }
+
+  async hasUnstagedChanges(): Promise<boolean> {
+    const status = await this.gitProvider.status();
+
+    return status.files.length > 0 || status.not_added.length > 0;
   }
 
   async isGitInitialized(): Promise<boolean> {
