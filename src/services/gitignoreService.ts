@@ -33,7 +33,7 @@ export class GitignoreService {
   }
 
   private async handleCurrentlyTrackedObsidian() {
-    logger.warn(`${OBSIDIAN_FOLDER_NAME} was being tracked.`);
+    logger.warn(`${OBSIDIAN_FOLDER_NAME} is being tracked.`);
 
     try {
       await fs.access(this.gitignorePath);
