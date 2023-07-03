@@ -1,5 +1,15 @@
 
 
+# [0.4.0](https://github.com/mahyarmirrashed/yaos/compare/0.3.0...0.4.0) (2023-07-03)
+
+
+### Features
+
+* add command to show conflicting files modal ([76fcd60](https://github.com/mahyarmirrashed/yaos/commit/76fcd6021ac437252a7e69d240a8bbf1231552da))
+* add modal for displaying conflicting files ([a3bf15f](https://github.com/mahyarmirrashed/yaos/commit/a3bf15f0ed918621244a5086909cba69f4cd8c2f))
+* add notice when vault successfully backs up ([104c154](https://github.com/mahyarmirrashed/yaos/commit/104c15453038f925c94242a6ca0c8cb3aad57c99))
+* use simple git api to get list of conflicting files ([763774f](https://github.com/mahyarmirrashed/yaos/commit/763774f46b9028ab2c486931ca6bb392537c4a5f))
+
 # [0.3.0](https://github.com/mahyarmirrashed/yaos/compare/0.2.0...0.3.0) (2023-07-03)
 
 
