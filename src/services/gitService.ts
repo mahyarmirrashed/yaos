@@ -59,12 +59,6 @@ export class SimpleGitService implements GitService {
     this.gitProvider.reset();
   }
 
-  async hasUnstagedChanges(): Promise<boolean> {
-    const status = await this.gitProvider.status();
-
-    return status.files.length > 0 || status.not_added.length > 0;
-  }
-
   async isGitInitialized(): Promise<boolean> {
     let gitInitialized = true;
 
@@ -100,6 +94,12 @@ export class SimpleGitService implements GitService {
     }
 
     return remoteConfigured;
+  }
+
+  async hasUnstagedChanges(): Promise<boolean> {
+    const status = await this.gitProvider.status();
+
+    return status.files.length > 0 || status.not_added.length > 0;
   }
 
   async removeObsidianPathFromHistory(): Promise<void> {
