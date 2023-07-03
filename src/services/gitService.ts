@@ -23,6 +23,7 @@ export interface GitService {
   isRemoteConfigured(): Promise<boolean>;
 
   removeObsidianPathFromHistory(): Promise<void>;
+  stopRebasing(): Promise<void>;
   unstagedChangesExist(): Promise<boolean>;
 }
 
@@ -141,6 +142,17 @@ export class SimpleGitService implements GitService {
       "--all",
     ]);
   }
+
+  async stopRebasing(): Promise<void> {
+    process.env.GIT_EDITOR = "true";
+
+    await this.gitStageAll();
+    await this.gitProvider.rebase(["--continue"]);
+    await this.gitPush();
+
+    process.env.GIT_EDITOR = undefined;
+  }
+
   async unstagedChangesExist(): Promise<boolean> {
     const status = await this.gitProvider.status();
 
