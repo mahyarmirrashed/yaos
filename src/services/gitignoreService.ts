@@ -12,7 +12,7 @@ const GITIGNORE_LINE = "# ignore obsidian vault state\n.obsidian/\n";
 export class GitignoreService {
   private gitignorePath: string;
 
-  constructor(private basePath: string, private gitService: GitService) {
+  constructor(basePath: string, private gitService: GitService) {
     logger.debug("Initializing GitignoreService...");
     this.gitignorePath = resolve(basePath, GITIGNORE_FILE_NAME);
     logger.debug("GitignoreService initialized.");
@@ -21,13 +21,11 @@ export class GitignoreService {
   async ensureObsidianIgnored(): Promise<void> {
     logger.debug(`Ensuring ${OBSIDIAN_FOLDER_NAME} directory is ignored...`);
 
-    const obsidianFolderPath = resolve(this.basePath, OBSIDIAN_FOLDER_NAME);
-
-    if (await this.gitService.isPathPreviouslyTracked(obsidianFolderPath)) {
+    if (await this.gitService.isPathPreviouslyTracked(OBSIDIAN_FOLDER_NAME)) {
       await this.handlePreviouslyTrackedObsidian();
     }
 
-    if (await this.gitService.isPathCurrentlyTracked(obsidianFolderPath)) {
+    if (await this.gitService.isPathCurrentlyTracked(OBSIDIAN_FOLDER_NAME)) {
       await this.handleCurrentlyTrackedObsidian();
     }
   }
