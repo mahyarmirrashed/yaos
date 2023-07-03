@@ -42,6 +42,8 @@ export class SimpleGitService implements GitService {
     const options = forcePush ? ["-f"] : [];
 
     await this.gitProvider.push(DEFAULT_REMOTE, DEFAULT_BRANCH, options);
+
+    logger.info(`Pushed changes to ${DEFAULT_REMOTE}/${DEFAULT_BRANCH}.`);
   }
 
   async gitStage(...files: string[]): Promise<void> {
