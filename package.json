@@ -8,9 +8,9 @@
   "license": "MIT",
   "private": false,
   "scripts": {
+    "bump": "node scripts/update-project-version.mjs",
     "dev": "node scripts/esbuild.config.mjs",
     "format": "npx prettier --write scripts/ src/",
-    "precommit": "node scripts/update-project-version.mjs",
     "release": "release-it"
   },
   "devDependencies": {

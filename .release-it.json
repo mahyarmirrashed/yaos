@@ -1,6 +1,6 @@
 {
   "hooks": {
-    "before:git:commit": "yarn precommit"
+    "after:bump": "yarn bump"
   },
   "git": {
     "requireBranch": "main",
