@@ -24,27 +24,35 @@ export class GitignoreService {
     const obsidianFolderPath = resolve(this.basePath, OBSIDIAN_FOLDER_NAME);
 
     if (await this.gitService.isPathPreviouslyTracked(obsidianFolderPath)) {
-      logger.warn(`${OBSIDIAN_FOLDER_NAME} was being previously tracked.`);
-
-      await this.gitService.removePathFromHistory(`${OBSIDIAN_FOLDER_NAME}*`);
-      await this.gitService.gitPush(true);
+      await this.handlePreviouslyTrackedObsidian();
     }
 
     if (await this.gitService.isPathCurrentlyTracked(obsidianFolderPath)) {
-      logger.warn(`${OBSIDIAN_FOLDER_NAME} was being tracked.`);
-
-      try {
-        await fs.access(this.gitignorePath);
-        await fs.appendFile(this.gitignorePath, `\n${GITIGNORE_LINE}`);
-        await this.stageCommitAndPushGitignore("chore: ignore `.obsidian/`");
-      } catch {
-        logger.warn(`${GITIGNORE_FILE_NAME} file did not exist.`);
-        logger.info(`Created ${GITIGNORE_FILE_NAME}.`);
-
-        await fs.writeFile(this.gitignorePath, GITIGNORE_LINE);
-        await this.stageCommitAndPushGitignore("chore: create `.gitignore`");
-      }
+      await this.handleCurrentlyTrackedObsidian();
     }
+  }
+
+  private async handleCurrentlyTrackedObsidian() {
+    logger.warn(`${OBSIDIAN_FOLDER_NAME} was being tracked.`);
+
+    try {
+      await fs.access(this.gitignorePath);
+      await fs.appendFile(this.gitignorePath, `\n${GITIGNORE_LINE}`);
+      await this.stageCommitAndPushGitignore("chore: ignore `.obsidian/`");
+    } catch {
+      logger.warn(`${GITIGNORE_FILE_NAME} file did not exist.`);
+      logger.info(`Created ${GITIGNORE_FILE_NAME}.`);
+
+      await fs.writeFile(this.gitignorePath, GITIGNORE_LINE);
+      await this.stageCommitAndPushGitignore("chore: create `.gitignore`");
+    }
+  }
+
+  private async handlePreviouslyTrackedObsidian() {
+    logger.warn(`${OBSIDIAN_FOLDER_NAME} was being previously tracked.`);
+
+    await this.gitService.removePathFromHistory(`${OBSIDIAN_FOLDER_NAME}*`);
+    await this.gitService.gitPush(true);
   }
 
   private async stageCommitAndPushGitignore(message: string): Promise<void> {
