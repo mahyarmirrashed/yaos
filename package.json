@@ -10,7 +10,7 @@
   "scripts": {
     "dev": "node scripts/esbuild.config.mjs",
     "format": "npx prettier --write scripts/ src/",
-    "precommit": "node scripts/update-project-version.js",
+    "precommit": "node scripts/update-project-version.mjs",
     "release": "release-it"
   },
   "devDependencies": {
