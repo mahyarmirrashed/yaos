@@ -24,7 +24,7 @@ export class SimpleGitService implements GitService {
 
     try {
       await this.gitProvider.revparse(["--is-inside-work-tree"]);
-    } catch (_err) {
+    } catch {
       gitInitialized = false;
     }
 
@@ -49,7 +49,7 @@ export class SimpleGitService implements GitService {
     try {
       const remotes = await this.gitProvider.listRemote(["--get-url"]);
       remoteConfigured = !!remotes;
-    } catch (_err) {
+    } catch {
       remoteConfigured = false;
     }
 
