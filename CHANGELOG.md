@@ -1,5 +1,13 @@
 
 
+## [0.4.2](https://github.com/mahyarmirrashed/yaos/compare/0.4.1...0.4.2) (2023-07-03)
+
+
+### Bug Fixes
+
+* automatically run `yarn bump` before pushing release ([2f5c429](https://github.com/mahyarmirrashed/yaos/commit/2f5c429e6a1bf82fa366dab7b7efeb5df01603d3))
+* update release name to match obsidian's desired name ([eeb8626](https://github.com/mahyarmirrashed/yaos/commit/eeb8626cc89ed383c3bfa621e3b43408c78b730c))
+
 ## 0.4.1 (2023-07-03)
 
 
