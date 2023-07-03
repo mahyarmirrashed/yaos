@@ -27,7 +27,6 @@ export class SimpleGitService implements GitService {
     logger.debug("SimpleGitService initialized.");
   }
 
-  async isGitInitialized() {
   async gitPush(forcePush = false): Promise<void> {
     const options = forcePush ? ["-f"] : [];
 
@@ -46,6 +45,7 @@ export class SimpleGitService implements GitService {
     this.gitProvider.reset();
   }
 
+  async isGitInitialized(): Promise<boolean> {
     let gitInitialized = true;
 
     try {
