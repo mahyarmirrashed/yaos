@@ -22,7 +22,7 @@ export interface GitService {
   isRemoteAhead(): Promise<boolean>;
   isRemoteConfigured(): Promise<boolean>;
 
-  listUnmergedFiles(): Promise<string[]>;
+  getConflictingFiles(): Promise<string[]>;
   removeObsidianPathFromHistory(): Promise<void>;
   stopRebasing(): Promise<void>;
   unstagedChangesExist(): Promise<boolean>;
@@ -124,13 +124,10 @@ export class SimpleGitService implements GitService {
     return remoteConfigured;
   }
 
-  async listUnmergedFiles(): Promise<string[]> {
-    const diff = await this.gitProvider.diff([
-      "--name-only",
-      "--diff-filter=U",
-    ]);
+  async getConflictingFiles(): Promise<string[]> {
+    const status = await this.gitProvider.status();
 
-    return diff.split("\n");
+    return status.conflicted;
   }
 
   async removeObsidianPathFromHistory(): Promise<void> {
