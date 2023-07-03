@@ -8,6 +8,7 @@ const DEFAULT_BRANCH = "main";
 
 export interface GitService {
   gitCommit(message?: string): Promise<void>;
+  gitPullWithRebase(): Promise<void>;
   gitPush(forcePush?: boolean): Promise<void>;
   gitStage(...files: string[]): Promise<void>;
   gitStageAll(): Promise<void>;
@@ -37,6 +38,10 @@ export class SimpleGitService implements GitService {
     logger.info(`Committing... ${message}`);
 
     await this.gitProvider.commit(message);
+  }
+
+  async gitPullWithRebase(): Promise<void> {
+    await this.gitProvider.pull(["--rebase"]);
   }
 
   async gitPush(forcePush = false): Promise<void> {
