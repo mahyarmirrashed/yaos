@@ -40,6 +40,7 @@ export default class SyncController {
         logger.success("Created vault backup.");
       } catch {
         logger.error("Automatic rebasing failed.");
+
         this.notifyUserAboutConflicts();
       }
     }
