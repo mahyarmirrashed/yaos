@@ -1,7 +1,15 @@
 import logger from "@/utils/logger";
 import simpleGit, { SimpleGit } from "simple-git";
 
+const DEFAULT_REMOTE = "origin";
+const DEFAULT_BRANCH = "main";
+
 export interface GitService {
+  gitPush(forcePush: boolean): Promise<void>;
+  gitStage(...files: string[]): Promise<void>;
+  gitStageAll(): Promise<void>;
+  gitUnstageAll(): Promise<void>;
+
   isGitInitialized(): Promise<boolean>;
   isPathCurrentlyTracked(path: string): Promise<boolean>;
   isPathPreviouslyTracked(path: string): Promise<boolean>;
@@ -20,6 +28,24 @@ export class SimpleGitService implements GitService {
   }
 
   async isGitInitialized() {
+  async gitPush(forcePush = false): Promise<void> {
+    const options = forcePush ? ["-f"] : [];
+
+    await this.gitProvider.push(DEFAULT_REMOTE, DEFAULT_BRANCH, options);
+  }
+
+  async gitStage(...files: string[]): Promise<void> {
+    await Promise.all(files.map((file) => this.gitProvider.add(file)));
+  }
+
+  async gitStageAll(): Promise<void> {
+    this.gitProvider.add("./*");
+  }
+
+  async gitUnstageAll(): Promise<void> {
+    this.gitProvider.reset();
+  }
+
     let gitInitialized = true;
 
     try {
