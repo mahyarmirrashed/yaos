@@ -1,5 +1,12 @@
 
 
+## 0.4.1 (2023-07-03)
+
+
+### Bug Fixes
+
+* add notices for when repository has not been setup ([6b538bf](https://github.com/mahyarmirrashed/yaos/commit/6b538bf418c4c3d322fd7a77660f223b8edeed24))
+
 # [0.4.0](https://github.com/mahyarmirrashed/yaos/compare/0.3.0...0.4.0) (2023-07-03)
 
 
