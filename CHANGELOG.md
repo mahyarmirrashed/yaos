@@ -1,5 +1,18 @@
 
 
+# [0.5.0](https://github.com/mahyarmirrashed/yaos/compare/0.4.2...0.5.0) (2023-07-11)
+
+
+### Bug Fixes
+
+* perform to check adapter is file system adapter ([57d7b8b](https://github.com/mahyarmirrashed/yaos/commit/57d7b8b08b63390f0a03efa3fb4b2b10f4cc65b0))
+* remove process that ignores obsidian directory ([28a3856](https://github.com/mahyarmirrashed/yaos/commit/28a3856a626ef9d09ce8971b52d8142652ea90d7))
+
+
+### Features
+
+* notify user about failure when unexpected adapter is found ([f8a1b32](https://github.com/mahyarmirrashed/yaos/commit/f8a1b32a232d1d51b8dc76fb6f941f71dd709f3f))
+
 ## [0.4.2](https://github.com/mahyarmirrashed/yaos/compare/0.4.1...0.4.2) (2023-07-03)
 
 
