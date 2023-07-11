@@ -17,32 +17,31 @@ export default class YaosPlugin extends Plugin {
   async onload() {
     logger.debug("Initializing plugin...");
 
-    this.gitService = new SimpleGitService(this.getBasePath());
-    this.gitignoreService = new GitignoreService(
-      this.getBasePath(),
-      this.gitService
-    );
-    this.syncController = new SyncController(
-      this.gitService,
-      this.gitignoreService
-    );
+    const adapter = this.app.vault.adapter;
 
-    this.addCommand({
-      id: `show-unmerged`,
-      name: "Show unmerged/conflicting files",
-      callback: () => new UnmergedFilesView(this.app, this.gitService).open(),
-    });
-    this.addRibbonIcon(
-      PLUGIN_ICON,
-      PLUGIN_NAME,
-      this.handleRibbonIconClick.bind(this)
-    );
+    if (adapter instanceof FileSystemAdapter) {
+      const basePath = adapter.getBasePath();
 
-    logger.debug("Plugin initialized.");
-  }
+      this.gitService = new SimpleGitService(basePath);
+      this.gitignoreService = new GitignoreService(basePath, this.gitService);
+      this.syncController = new SyncController(
+        this.gitService,
+        this.gitignoreService
+      );
 
-  private getBasePath(): string {
-    return (this.app.vault.adapter as FileSystemAdapter).getBasePath();
+      this.addCommand({
+        id: `show-unmerged`,
+        name: "Show unmerged/conflicting files",
+        callback: () => new UnmergedFilesView(this.app, this.gitService).open(),
+      });
+      this.addRibbonIcon(
+        PLUGIN_ICON,
+        PLUGIN_NAME,
+        this.handleRibbonIconClick.bind(this)
+      );
+
+      logger.debug("Plugin initialized.");
+    }
   }
 
   private async handleRibbonIconClick(_evt: MouseEvent) {
