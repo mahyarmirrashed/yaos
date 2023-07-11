@@ -23,7 +23,6 @@ export interface GitService {
   isRemoteConfigured(): Promise<boolean>;
 
   getConflictingFiles(): Promise<string[]>;
-  removeObsidianPathFromHistory(): Promise<void>;
   stopRebasing(): Promise<void>;
   unstagedChangesExist(): Promise<boolean>;
 }
@@ -128,22 +127,6 @@ export class SimpleGitService implements GitService {
     const status = await this.gitProvider.status();
 
     return status.conflicted;
-  }
-
-  async removeObsidianPathFromHistory(): Promise<void> {
-    logger.info(`Removing all files in .obsidian/ from Git history.`);
-
-    await this.gitProvider.raw([
-      "filter-branch",
-      "--force",
-      "--index-filter",
-      `git rm --cached --ignore-unmatch .obsidian/*`,
-      "--prune-empty",
-      "--tag-name-filter",
-      "cat",
-      "--",
-      "--all",
-    ]);
   }
 
   async stopRebasing(): Promise<void> {

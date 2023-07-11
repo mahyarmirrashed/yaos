@@ -86,8 +86,6 @@ export default class SyncController {
       return;
     }
 
-    await this.gitignoreService.ensureObsidianIgnored();
-
     if (await this.gitService.isRebasing())
       await this.gitService.stopRebasing();
 
