@@ -1,6 +1,7 @@
 import { GitService } from "@/services/gitService";
 import { GitignoreService } from "@/services/gitignoreService";
 import logger from "@/utils/logger";
+import { notifyUserAboutFailure } from "@/utils/notifier";
 
 import { Notice } from "obsidian";
 
@@ -64,17 +65,13 @@ export default class SyncController {
     new Notice("Please fix the changes and then click the sync button again.");
   }
 
-  private notifyUserAboutFailure(message: string): void {
-    new Notice(`FATAL: ${message}`);
-  }
-
   async sync(): Promise<void> {
     if (await this.gitService.isGitInitialized()) {
       logger.debug("Vault is initialized as a Git repository.");
     } else {
       logger.fatal("Vault is not initialized as a Git repository.");
 
-      this.notifyUserAboutFailure("Vault is not a Git repository.");
+      notifyUserAboutFailure("Vault is not a Git repository.");
 
       return;
     }
@@ -84,7 +81,7 @@ export default class SyncController {
     } else {
       logger.fatal("Remote repository is not configured.");
 
-      this.notifyUserAboutFailure("Remote repository is not configured.");
+      notifyUserAboutFailure("Remote repository is not configured.");
 
       return;
     }
