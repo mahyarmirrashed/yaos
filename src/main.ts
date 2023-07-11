@@ -4,7 +4,7 @@ import { GitignoreService } from "@/services/gitignoreService";
 import { PLUGIN_NAME } from "@/utils/constants";
 import logger from "@/utils/logger";
 import { notifyUserAboutFailure } from "@/utils/notifier";
-import UnmergedFilesView from "@/views/unmergedFilesView";
+import UnmergedFilesView from "@/views/modals/unmergedFilesView";
 
 import { FileSystemAdapter, Plugin } from "obsidian";
 
