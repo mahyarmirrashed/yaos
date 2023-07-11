@@ -1,11 +1,11 @@
+import SyncController from "@/controllers/syncController";
 import { GitService, SimpleGitService } from "@/services/gitService";
 import { GitignoreService } from "@/services/gitignoreService";
 import { PLUGIN_NAME } from "@/utils/constants";
 import logger from "@/utils/logger";
+import UnmergedFilesView from "@/views/unmergedFilesView";
 
 import { FileSystemAdapter, Plugin } from "obsidian";
-import SyncController from "./controllers/syncController";
-import UnmergedFilesView from "./views/unmergedFilesView";
 
 const PLUGIN_ICON = "sync";
 
