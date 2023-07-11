@@ -12,14 +12,10 @@ export interface GitService {
   gitPush(forcePush?: boolean): Promise<void>;
   gitStage(...files: string[]): Promise<void>;
   gitStageAll(): Promise<void>;
-  gitUnstageAll(): Promise<void>;
 
   isGitInitialized(): Promise<boolean>;
   isLocalAhead(): Promise<boolean>;
-  isPathCurrentlyTracked(path: string): Promise<boolean>;
-  isPathPreviouslyTracked(path: string): Promise<boolean>;
   isRebasing(): Promise<boolean>;
-  isRemoteAhead(): Promise<boolean>;
   isRemoteConfigured(): Promise<boolean>;
 
   getConflictingFiles(): Promise<string[]>;
@@ -44,11 +40,11 @@ export class SimpleGitService implements GitService {
     await this.gitProvider.commit(message);
   }
 
-  async gitPullWithRebase(): Promise<void> {
+  async gitPullWithRebase() {
     await this.gitProvider.pull(["--rebase"]);
   }
 
-  async gitPush(forcePush = false): Promise<void> {
+  async gitPush(forcePush = false) {
     const options = forcePush ? ["-f"] : [];
 
     await this.gitProvider.push(DEFAULT_REMOTE, DEFAULT_BRANCH, options);
@@ -56,19 +52,15 @@ export class SimpleGitService implements GitService {
     logger.info(`Pushed changes to ${DEFAULT_REMOTE}/${DEFAULT_BRANCH}.`);
   }
 
-  async gitStage(...files: string[]): Promise<void> {
+  async gitStage(...files: string[]) {
     await Promise.all(files.map((file) => this.gitProvider.add(file)));
   }
 
-  async gitStageAll(): Promise<void> {
+  async gitStageAll() {
     this.gitProvider.add("./*");
   }
 
-  async gitUnstageAll(): Promise<void> {
-    this.gitProvider.reset();
-  }
-
-  async isGitInitialized(): Promise<boolean> {
+  async isGitInitialized() {
     let gitInitialized = true;
 
     try {
@@ -80,37 +72,17 @@ export class SimpleGitService implements GitService {
     return gitInitialized;
   }
 
-  async isLocalAhead(): Promise<boolean> {
-    const status = await this.gitProvider.status();
-
-    return status.ahead > 0;
+  async isLocalAhead() {
+    return this.gitProvider.status().then((status) => status.ahead > 0);
   }
 
-  async isPathCurrentlyTracked(path: string): Promise<boolean> {
-    const status = await this.gitProvider.status();
-
-    return status.not_added.some((filePath) => filePath.startsWith(path));
+  async isRebasing() {
+    return this.gitProvider
+      .status()
+      .then((status) => status.current !== DEFAULT_BRANCH);
   }
 
-  async isPathPreviouslyTracked(path: string): Promise<boolean> {
-    const log = await this.gitProvider.log({ file: path });
-
-    return log.all.length > 0;
-  }
-
-  async isRebasing(): Promise<boolean> {
-    const status = await this.gitProvider.status();
-
-    return status.current !== DEFAULT_BRANCH;
-  }
-
-  async isRemoteAhead(): Promise<boolean> {
-    const status = await this.gitProvider.status();
-
-    return status.behind > 0;
-  }
-
-  async isRemoteConfigured(): Promise<boolean> {
+  async isRemoteConfigured() {
     let remoteConfigured = false;
 
     try {
@@ -123,13 +95,11 @@ export class SimpleGitService implements GitService {
     return remoteConfigured;
   }
 
-  async getConflictingFiles(): Promise<string[]> {
-    const status = await this.gitProvider.status();
-
-    return status.conflicted;
+  async getConflictingFiles() {
+    return this.gitProvider.status().then((status) => status.conflicted);
   }
 
-  async stopRebasing(): Promise<void> {
+  async stopRebasing() {
     process.env.GIT_EDITOR = "true";
 
     await this.gitStageAll();
@@ -139,9 +109,9 @@ export class SimpleGitService implements GitService {
     process.env.GIT_EDITOR = undefined;
   }
 
-  async unstagedChangesExist(): Promise<boolean> {
-    const status = await this.gitProvider.status();
-
-    return status.files.length > 0 || status.not_added.length > 0;
+  async unstagedChangesExist() {
+    return this.gitProvider
+      .status()
+      .then((status) => status.files.length > 0 || status.not_added.length > 0);
   }
 }
