@@ -3,6 +3,7 @@ import { GitService, SimpleGitService } from "@/services/gitService";
 import { GitignoreService } from "@/services/gitignoreService";
 import { PLUGIN_NAME } from "@/utils/constants";
 import logger from "@/utils/logger";
+import { notifyUserAboutFailure } from "@/utils/notifier";
 import UnmergedFilesView from "@/views/unmergedFilesView";
 
 import { FileSystemAdapter, Plugin } from "obsidian";
@@ -41,6 +42,10 @@ export default class YaosPlugin extends Plugin {
       );
 
       logger.debug("Plugin initialized.");
+    } else {
+      notifyUserAboutFailure("Adapter type is not recognized.");
+
+      logger.fatal("Logger type was not FileSystemAdapter.");
     }
   }
 
