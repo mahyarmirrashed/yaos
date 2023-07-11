@@ -52,12 +52,10 @@ export default class YaosPlugin extends Plugin {
   private async handleRibbonIconClick(_evt: MouseEvent) {
     if (!this.gitService || !this.gitignoreService) {
       logger.fatal("Services were not initialized.");
-      return;
     } else if (!this.syncController) {
       logger.fatal("Sync controller was not initialized.");
-      return;
+    } else {
+      await this.syncController.sync();
     }
-
-    await this.syncController.sync();
   }
 }
