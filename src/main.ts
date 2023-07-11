@@ -28,7 +28,7 @@ export default class YaosPlugin extends Plugin {
     );
 
     this.addCommand({
-      id: `${PLUGIN_NAME.toLowerCase()}-show-unmerged`,
+      id: `show-unmerged`,
       name: "Show unmerged/conflicting files",
       callback: () => new UnmergedFilesView(this.app, this.gitService).open(),
     });
