@@ -65,7 +65,7 @@ export default class SyncController {
     new Notice("Please fix the changes and then click the sync button again.");
   }
 
-  async sync(): Promise<void> {
+  async sync() {
     if (await this.gitService.isGitInitialized()) {
       logger.debug("Vault is initialized as a Git repository.");
     } else {
