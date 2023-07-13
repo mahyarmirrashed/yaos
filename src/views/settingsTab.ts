@@ -24,5 +24,24 @@ export default class YaosSettingTab extends PluginSettingTab {
     const { containerEl } = this;
 
     containerEl.empty();
+
+    this.addDeviceNameSetting(containerEl);
+  }
+
+  private addDeviceNameSetting(el: HTMLElement) {
+    new Setting(el)
+      .setName("Device name")
+      .setDesc(
+        "This name will be displayed in the commit messages to indicate the sync source. Leave empty to use the default name."
+      )
+      .addText((text) =>
+        text
+          .setPlaceholder(DEFAULT_YAOS_SETTINGS.deviceName)
+          .setValue(this.plugin.settings.deviceName)
+          .onChange(async (deviceName) => {
+            this.plugin.settings.deviceName = deviceName;
+            await this.plugin.saveSettings();
+          })
+      );
   }
 }
