@@ -1,9 +1,11 @@
 import SyncController from "@/controllers/syncController";
 import { GitService, SimpleGitService } from "@/services/gitService";
 import { GitignoreService } from "@/services/gitignoreService";
+
 import { PLUGIN_NAME } from "@/utils/constants";
 import logger from "@/utils/logger";
 import { notifyUserAboutFailure } from "@/utils/notifier";
+
 import UnmergedFilesView from "@/views/modals/unmergedFilesView";
 
 import { FileSystemAdapter, Plugin } from "obsidian";
