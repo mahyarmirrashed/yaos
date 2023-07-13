@@ -39,10 +39,12 @@ export default class SyncController {
         await this.gitService.gitPush();
 
         this.notifyUserAboutBackup();
-      } catch {
-        logger.error("Automatic rebasing failed.");
 
+        logger.success("Created vault backup.");
+      } catch {
         this.notifyUserAboutConflicts();
+
+        logger.error("Automatic rebasing failed.");
       }
     }
   }
@@ -56,8 +58,6 @@ export default class SyncController {
 
   private notifyUserAboutBackup(): void {
     new Notice("Successfully backed up vault!");
-
-    logger.success("Created vault backup.");
   }
 
   private notifyUserAboutConflicts(): void {
