@@ -7,6 +7,10 @@ import logger from "@/utils/logger";
 import { notifyUserAboutFailure } from "@/utils/notifier";
 
 import UnmergedFilesView from "@/views/modals/unmergedFilesView";
+import YaosSettingTab, {
+  DEFAULT_YAOS_SETTINGS,
+  YaosSettings,
+} from "@/views/settingsTab";
 
 import { FileSystemAdapter, Plugin } from "obsidian";
 
@@ -17,8 +21,18 @@ export default class YaosPlugin extends Plugin {
   private gitignoreService?: GitignoreService;
   private syncController?: SyncController;
 
+  settings: YaosSettings = DEFAULT_YAOS_SETTINGS;
+
   async onload() {
     logger.debug("Initializing plugin...");
+
+    try {
+      await this.loadSettings();
+
+      logger.info("Loaded settings.");
+    } catch {
+      logger.error("Failed to load settings.");
+    }
 
     const adapter = this.app.vault.adapter;
 
@@ -42,6 +56,7 @@ export default class YaosPlugin extends Plugin {
         PLUGIN_NAME,
         this.handleRibbonIconClick.bind(this)
       );
+      this.addSettingTab(new YaosSettingTab(this.app, this));
 
       logger.debug("Plugin initialized.");
     } else {
@@ -49,6 +64,18 @@ export default class YaosPlugin extends Plugin {
 
       logger.fatal("Logger type was not FileSystemAdapter.");
     }
+  }
+
+  async loadSettings() {
+    this.settings = Object.assign(
+      {},
+      DEFAULT_YAOS_SETTINGS,
+      await this.loadData()
+    );
+  }
+
+  async saveSettings(settings = this.settings) {
+    await this.saveData(settings);
   }
 
   private async handleRibbonIconClick(_evt: MouseEvent) {
