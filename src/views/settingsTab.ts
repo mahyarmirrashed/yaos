@@ -57,69 +57,78 @@ export default class YaosSettingTab extends PluginSettingTab {
 
     containerEl.empty();
 
-    containerEl.createEl("h2", { text: "General" });
-    this.addDeviceNameSetting(containerEl);
-    this.addCreateIssueSetting(containerEl);
+    this.addGeneralSection(containerEl);
+    this.addSelectiveSection(containerEl);
+  }
 
-    containerEl.createEl("h2", { text: "Selective sync" });
-    this.addToggleSetting(containerEl, {
+  private addGeneralSection(el: HTMLElement) {
+    el.createEl("h2", { text: "General" });
+    this.addDeviceNameSetting(el);
+    this.addCreateIssueSetting(el);
+  }
+
+  private addSelectiveSection(el: HTMLElement) {
+    el.createEl("h2", { text: "Selective sync" });
+    this.addToggleSetting(el, {
       propertyName: "syncImages",
       settingName: "Sync images",
       settingDesc:
         "Sync image files with these extensions: bmp, png, jpg, jpeg, gif, svg, webp.",
     });
-    this.addToggleSetting(containerEl, {
+    this.addToggleSetting(el, {
       propertyName: "syncAudio",
       settingName: "Sync audio",
       settingDesc:
         "Sync audio files with these extensions: mp3, wav, m4a, 3gp, flac, ogg, oga, opus.",
     });
-    this.addToggleSetting(containerEl, {
+    this.addToggleSetting(el, {
       propertyName: "syncVideos",
       settingName: "Sync videos",
       settingDesc:
         "Sync video files with these extensions: mp4, webm, ogv, mov, mkv.",
     });
-    this.addToggleSetting(containerEl, {
+    this.addToggleSetting(el, {
       propertyName: "syncPdfs",
       settingName: "Sync PDFs",
       settingDesc: "Sync PDF files.",
     });
-    this.addToggleSetting(containerEl, {
+    this.addToggleSetting(el, {
       propertyName: "syncOtherFiles",
       settingName: "Sync all other types",
       settingDesc: "Sync unsupported file types.",
     });
+  }
 
-    containerEl.createEl("h2", { text: "Vault configuration sync" });
-    this.addDisabledToggleSetting(containerEl, {
+  private addVaultSection(el: HTMLElement) {
+    el.createEl("h2", { text: "Vault configuration sync" });
+    this.addDisabledToggleSetting(el, {
       propertyName: "syncMainSettings",
       settingName: "Sync main settings",
       settingDesc: "Sync editor settings, files, link settings, and others.",
     });
-    this.addDisabledToggleSetting(containerEl, {
+    this.addDisabledToggleSetting(el, {
       propertyName: "syncAppearanceSettings",
       settingName: "Sync appearance settings",
       settingDesc:
         "Sync appearance settings like dark mode, active theme, and enabled snippets.",
     });
-    this.addDisabledToggleSetting(containerEl, {
+    this.addDisabledToggleSetting(el, {
       propertyName: "syncThemesAndSnippets",
       settingName: "Sync themes and snippets",
       settingDesc:
         "Sync downloaded themes and snippets. Whether they are enabled depends on the previous setting.",
     });
-    this.addDisabledToggleSetting(containerEl, {
+    this.addDisabledToggleSetting(el, {
       propertyName: "syncHotkeys",
       settingName: "Sync hotkeys",
       settingDesc: "Sync custom hotkeys.",
     });
-    this.addDisabledToggleSetting(containerEl, {
+    this.addDisabledToggleSetting(el, {
       propertyName: "syncCorePluginSettings",
       settingName: "Sync core plugin settings",
       settingDesc: "Sync core plugin settings.",
     });
-    this.addDisabledToggleSetting(containerEl, {
+    this.addDisabledToggleSetting(el, {
       propertyName: "syncCommunityPluginSettings",
       settingName: "Sync community plugin settings",
       settingDesc: "Sync core plugin settings.",
