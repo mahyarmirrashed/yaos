@@ -92,62 +92,38 @@ export default class YaosSettingTab extends PluginSettingTab {
     });
 
     containerEl.createEl("h2", { text: "Vault configuration sync" });
-    this.addToggleSetting(
-      containerEl,
-      {
-        propertyName: "syncMainSettings",
-        settingName: "Sync main settings",
-        settingDesc: "Sync editor settings, files, link settings, and others.",
-      },
-      true
-    );
-    this.addToggleSetting(
-      containerEl,
-      {
-        propertyName: "syncAppearanceSettings",
-        settingName: "Sync appearance settings",
-        settingDesc:
-          "Sync appearance settings like dark mode, active theme, and enabled snippets.",
-      },
-      true
-    );
-    this.addToggleSetting(
-      containerEl,
-      {
-        propertyName: "syncThemesAndSnippets",
-        settingName: "Sync themes and snippets",
-        settingDesc:
-          "Sync downloaded themes and snippets. Whether they are enabled depends on the previous setting.",
-      },
-      true
-    );
-    this.addToggleSetting(
-      containerEl,
-      {
-        propertyName: "syncHotkeys",
-        settingName: "Sync hotkeys",
-        settingDesc: "Sync custom hotkeys.",
-      },
-      true
-    );
-    this.addToggleSetting(
-      containerEl,
-      {
-        propertyName: "syncCorePluginSettings",
-        settingName: "Sync core plugin settings",
-        settingDesc: "Sync core plugin settings.",
-      },
-      true
-    );
-    this.addToggleSetting(
-      containerEl,
-      {
-        propertyName: "syncCommunityPluginSettings",
-        settingName: "Sync community plugin settings",
-        settingDesc: "Sync core plugin settings.",
-      },
-      true
-    );
+    this.addDisabledToggleSetting(containerEl, {
+      propertyName: "syncMainSettings",
+      settingName: "Sync main settings",
+      settingDesc: "Sync editor settings, files, link settings, and others.",
+    });
+    this.addDisabledToggleSetting(containerEl, {
+      propertyName: "syncAppearanceSettings",
+      settingName: "Sync appearance settings",
+      settingDesc:
+        "Sync appearance settings like dark mode, active theme, and enabled snippets.",
+    });
+    this.addDisabledToggleSetting(containerEl, {
+      propertyName: "syncThemesAndSnippets",
+      settingName: "Sync themes and snippets",
+      settingDesc:
+        "Sync downloaded themes and snippets. Whether they are enabled depends on the previous setting.",
+    });
+    this.addDisabledToggleSetting(containerEl, {
+      propertyName: "syncHotkeys",
+      settingName: "Sync hotkeys",
+      settingDesc: "Sync custom hotkeys.",
+    });
+    this.addDisabledToggleSetting(containerEl, {
+      propertyName: "syncCorePluginSettings",
+      settingName: "Sync core plugin settings",
+      settingDesc: "Sync core plugin settings.",
+    });
+    this.addDisabledToggleSetting(containerEl, {
+      propertyName: "syncCommunityPluginSettings",
+      settingName: "Sync community plugin settings",
+      settingDesc: "Sync core plugin settings.",
+    });
   }
 
   private addDeviceNameSetting(el: HTMLElement) {
@@ -180,6 +156,13 @@ export default class YaosSettingTab extends PluginSettingTab {
           .setCta()
           .onClick(() => self.open(GITHUB_ISSUE_LINK, "_blank", "norefferrer"))
       );
+  }
+
+  private addDisabledToggleSetting<K extends BooleanKeys<YaosSettings>>(
+    el: HTMLElement,
+    options: YaosSettingOptions<K>
+  ) {
+    this.addToggleSetting(el, options, true);
   }
 
   private addToggleSetting<K extends BooleanKeys<YaosSettings>>(
