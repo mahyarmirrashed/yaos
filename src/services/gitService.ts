@@ -1,4 +1,5 @@
 import logger from "@/utils/logger";
+import { YaosSettings } from "@/views/settingsTab";
 
 import dayjs from "dayjs";
 import simpleGit, { SimpleGit } from "simple-git";
@@ -7,6 +8,8 @@ const DEFAULT_REMOTE = "origin";
 const DEFAULT_BRANCH = "main";
 
 export interface GitService {
+  settings: YaosSettings;
+
   gitCommit(message?: string): Promise<void>;
   gitPullWithRebase(): Promise<void>;
   gitPush(forcePush?: boolean): Promise<void>;
@@ -26,9 +29,9 @@ export interface GitService {
 export class SimpleGitService implements GitService {
   private gitProvider: SimpleGit;
 
-  constructor(private repoPath: string) {
+  constructor(repoPath: string, public settings: YaosSettings) {
     logger.debug("Initializing SimpleGitService...");
-    this.gitProvider = simpleGit(this.repoPath);
+    this.gitProvider = simpleGit(repoPath);
     logger.debug("SimpleGitService initialized.");
   }
 

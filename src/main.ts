@@ -39,7 +39,7 @@ export default class YaosPlugin extends Plugin {
     if (adapter instanceof FileSystemAdapter) {
       const basePath = adapter.getBasePath();
 
-      this.gitService = new SimpleGitService(basePath);
+      this.gitService = new SimpleGitService(basePath, this.settings);
       this.gitignoreService = new GitignoreService(basePath, this.gitService);
       this.syncController = new SyncController(
         this.gitService,
