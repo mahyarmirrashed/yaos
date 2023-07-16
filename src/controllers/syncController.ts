@@ -70,9 +70,7 @@ export default class SyncController {
       logger.debug("Vault is initialized as a Git repository.");
     } else {
       logger.fatal("Vault is not initialized as a Git repository.");
-
       notifyUserAboutFailure("Vault is not a Git repository.");
-
       return;
     }
 
@@ -80,9 +78,7 @@ export default class SyncController {
       logger.debug("Remote repository is configured.");
     } else {
       logger.fatal("Remote repository is not configured.");
-
       notifyUserAboutFailure("Remote repository is not configured.");
-
       return;
     }
 
