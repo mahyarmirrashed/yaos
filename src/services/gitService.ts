@@ -7,6 +7,8 @@ import simpleGit, { SimpleGit } from "simple-git";
 const DEFAULT_REMOTE = "origin";
 const DEFAULT_BRANCH = "main";
 
+const CURRENT_TIME = () => dayjs().format("YYYY-MM-DD-HH:mm");
+
 export interface GitService {
   settings: YaosSettings;
 
@@ -36,7 +38,7 @@ export class SimpleGitService implements GitService {
   }
 
   async gitCommit(
-    message = `chore: vault backup from ${dayjs().format("YYYY-MM-DD-HH:mm")}`
+    message = `chore: vault backup from ${this.settings.deviceName} at ${CURRENT_TIME}`
   ): Promise<void> {
     logger.info(`Committing... ${message}`);
 
