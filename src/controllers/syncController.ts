@@ -13,7 +13,7 @@ export default class SyncController {
     logger.debug("Initialized sync controller.");
   }
 
-  private async createVaultBackup(): Promise<void> {
+  private async createVaultBackup() {
     if (await this.gitService.unstagedChangesExist()) {
       await this.handleUnstagedChanges();
     } else {
@@ -56,11 +56,11 @@ export default class SyncController {
     await this.gitService.gitCommit();
   }
 
-  private notifyUserAboutBackup(): void {
+  private notifyUserAboutBackup() {
     new Notice("Successfully backed up vault!");
   }
 
-  private notifyUserAboutConflicts(): void {
+  private notifyUserAboutConflicts() {
     new Notice("Your local and remote repositories had conflicting changes.");
     new Notice("Please fix the changes and then click the sync button again.");
   }
