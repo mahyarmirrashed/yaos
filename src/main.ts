@@ -12,7 +12,7 @@ import YaosSettingTab, {
   YaosSettings,
 } from "@/views/settingsTab";
 
-import { FileSystemAdapter, Plugin } from "obsidian";
+import { FileSystemAdapter, Notice, Plugin } from "obsidian";
 
 const PLUGIN_ICON = "sync";
 
@@ -84,7 +84,13 @@ export default class YaosPlugin extends Plugin {
     } else if (!this.syncController) {
       logger.fatal("Sync controller was not initialized.");
     } else {
-      await this.syncController.sync();
+      try {
+        await this.syncController.sync();
+      } catch (e) {
+        new Notice("Unknown error occurred. Please create an issue.");
+
+        logger.fatal("Unknown error:", e);
+      }
     }
   }
 }
