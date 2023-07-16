@@ -72,6 +72,9 @@ export default class YaosPlugin extends Plugin {
       DEFAULT_YAOS_SETTINGS,
       await this.loadData()
     );
+
+    if (this.settings.deviceName === "")
+      this.settings.deviceName = DEFAULT_YAOS_SETTINGS.deviceName;
   }
 
   async saveSettings(settings = this.settings) {
