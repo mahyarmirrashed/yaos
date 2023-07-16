@@ -39,7 +39,7 @@ export class SimpleGitService implements GitService {
 
   async gitCommit(
     message = `chore: vault backup from ${this.settings.deviceName} at ${CURRENT_TIME}`
-  ): Promise<void> {
+  ) {
     logger.info(`Committing... ${message}`);
 
     await this.gitProvider.commit(message);
