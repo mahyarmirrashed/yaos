@@ -8,6 +8,8 @@ const DEFAULT_REMOTE = "origin";
 const DEFAULT_BRANCH = "main";
 
 const CURRENT_TIME = () => dayjs().format("YYYY-MM-DD-HH:mm");
+const COMMIT_MESSAGE = (deviceName: string) =>
+  `chore: vault backup from ${deviceName} at ${CURRENT_TIME()}`;
 
 export interface GitService {
   settings: YaosSettings;
@@ -37,9 +39,7 @@ export class SimpleGitService implements GitService {
     logger.debug("SimpleGitService initialized.");
   }
 
-  async gitCommit(
-    message = `chore: vault backup from ${this.settings.deviceName} at ${CURRENT_TIME}`
-  ) {
+  async gitCommit(message = COMMIT_MESSAGE(this.settings.deviceName)) {
     logger.info(`Committing... ${message}`);
 
     await this.gitProvider.commit(message);
