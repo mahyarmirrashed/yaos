@@ -58,7 +58,6 @@ export default class YaosSettingTab extends PluginSettingTab {
     containerEl.empty();
 
     this.addGeneralSection(containerEl);
-    this.addSelectiveSection(containerEl);
   }
 
   private addGeneralSection(el: HTMLElement) {
