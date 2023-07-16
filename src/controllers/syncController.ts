@@ -86,8 +86,11 @@ export default class SyncController {
       return;
     }
 
-    if (await this.gitService.isRebasing())
+    if (await this.gitService.isRebasing()) {
+      logger.debug("Stopping in progress rebase.");
+
       await this.gitService.stopRebasing();
+    }
 
     await this.createVaultBackup();
   }
