@@ -71,8 +71,8 @@ export class SimpleGitService implements GitService {
 
   async isRebasing() {
     return this.gitProvider
-      .status()
-      .then((status) => status.current !== DEFAULT_BRANCH);
+      .raw(["status"])
+      .then((status) => status.includes("rebase"));
   }
 
   async isRemoteConfigured() {
