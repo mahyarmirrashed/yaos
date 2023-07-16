@@ -18,10 +18,10 @@ export interface GitService {
   gitStage(...files: string[]): Promise<void>;
   gitStageAll(): Promise<void>;
 
-  isGitInitialized(): Promise<boolean>;
   isLocalAhead(): Promise<boolean>;
   isRebasing(): Promise<boolean>;
   isRemoteConfigured(): Promise<boolean>;
+  isRepo(): Promise<boolean>;
 
   getConflictingFiles(): Promise<string[]>;
   stopRebasing(): Promise<void>;
@@ -65,18 +65,6 @@ export class SimpleGitService implements GitService {
     this.gitProvider.add("./*");
   }
 
-  async isGitInitialized() {
-    let gitInitialized = true;
-
-    try {
-      await this.gitProvider.revparse(["--is-inside-work-tree"]);
-    } catch {
-      gitInitialized = false;
-    }
-
-    return gitInitialized;
-  }
-
   async isLocalAhead() {
     return this.gitProvider.status().then((status) => status.ahead > 0);
   }
@@ -98,6 +86,10 @@ export class SimpleGitService implements GitService {
     }
 
     return remoteConfigured;
+  }
+
+  async isRepo() {
+    return this.gitProvider.checkIsRepo();
   }
 
   async getConflictingFiles() {

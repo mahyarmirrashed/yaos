@@ -66,7 +66,7 @@ export default class SyncController {
   }
 
   async sync() {
-    if (await this.gitService.isGitInitialized()) {
+    if (await this.gitService.isRepo()) {
       logger.debug("Vault is initialized as a Git repository.");
     } else {
       logger.fatal("Vault is not initialized as a Git repository.");
