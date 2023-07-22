@@ -1,5 +1,12 @@
 
 
+## [0.6.1](https://github.com/mahyarmirrashed/yaos/compare/0.6.0...0.6.1) (2023-07-22)
+
+
+### Bug Fixes
+
+* conform to more universal standard of delimiting with `T` ([5644953](https://github.com/mahyarmirrashed/yaos/commit/564495301ebc075b24d9327cafa80c3ae61a1a82))
+
 # [0.6.0](https://github.com/mahyarmirrashed/yaos/compare/0.5.0...0.6.0) (2023-07-22)
 
 
