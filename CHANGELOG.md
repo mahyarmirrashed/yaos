@@ -1,5 +1,27 @@
 
 
+# [0.6.0](https://github.com/mahyarmirrashed/yaos/compare/0.5.0...0.6.0) (2023-07-22)
+
+
+### Bug Fixes
+
+* properly detect if is rebasing ([cd8ba77](https://github.com/mahyarmirrashed/yaos/commit/cd8ba779b4b99c2d95992a6d65eb12204d6a8323))
+* properly format commit message template datetime ([724ad4e](https://github.com/mahyarmirrashed/yaos/commit/724ad4e0dc1321e4446ee9d326b98bddc507c87b))
+* use default device name if not set ([23a9dd4](https://github.com/mahyarmirrashed/yaos/commit/23a9dd4f8319e109936fec3fe196d3773f90c04c))
+
+
+### Features
+
+* add create issue setting for users to report issues ([18f9592](https://github.com/mahyarmirrashed/yaos/commit/18f95927a31f749a7e15c1009d1e7e48837e50e8))
+* add debugging message for when rebasing ([6ed0c37](https://github.com/mahyarmirrashed/yaos/commit/6ed0c37f728067770508e25f11d154d6aacdd031))
+* add device name setting with ability to set/unset it ([45ee678](https://github.com/mahyarmirrashed/yaos/commit/45ee6784dcdfbabb1fa594d05def30762d6f42c1))
+* add settings for git service to access ([7f194d2](https://github.com/mahyarmirrashed/yaos/commit/7f194d21e502cecf6dd61ba35518452a21524a0f))
+* add settings tab with option to set device name ([3261db9](https://github.com/mahyarmirrashed/yaos/commit/3261db95c2fbfd9398448d4431b260c8a9c206c8))
+* add toggle settings for file sync and configuration sync ([70d2c55](https://github.com/mahyarmirrashed/yaos/commit/70d2c55190191f1832bcc8d6cfee49cc0c57f34d))
+* add type for specifying keys whose values must be boolean ([06357d3](https://github.com/mahyarmirrashed/yaos/commit/06357d322581f8835423dd7d001c847c541aceac))
+* handle errors when sync button is pressed and log the error ([1279939](https://github.com/mahyarmirrashed/yaos/commit/1279939e0654c53b2bc863ab10a5977ff4608ad2))
+* use device name in backup commit message ([d914f2d](https://github.com/mahyarmirrashed/yaos/commit/d914f2db94c21526497ee2ee58158c752d5e20c7))
+
 # [0.5.0](https://github.com/mahyarmirrashed/yaos/compare/0.4.2...0.5.0) (2023-07-11)
 
 
