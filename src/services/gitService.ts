@@ -7,7 +7,7 @@ import simpleGit, { SimpleGit } from "simple-git";
 const DEFAULT_REMOTE = "origin";
 const DEFAULT_BRANCH = "main";
 
-const CURRENT_TIME = () => dayjs().format("YYYY-MM-DD-HH:mm");
+const CURRENT_TIME = () => dayjs().format("YYYY-MM-DDTHH:mm");
 const COMMIT_MESSAGE = (deviceName: string) =>
   `chore: vault backup from ${deviceName} at ${CURRENT_TIME()}`;
 
