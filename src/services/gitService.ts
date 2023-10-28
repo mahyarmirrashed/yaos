@@ -62,7 +62,7 @@ export class SimpleGitService implements GitService {
   }
 
   async gitStageAll() {
-    this.gitProvider.add("./*");
+    await this.gitProvider.add("./*");
   }
 
   async isLocalAhead() {
