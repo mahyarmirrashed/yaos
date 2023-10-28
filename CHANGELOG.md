@@ -1,5 +1,12 @@
 
 
+## [0.6.2](https://github.com/mahyarmirrashed/yaos/compare/0.6.1...0.6.2) (2023-10-28)
+
+
+### Bug Fixes
+
+* await async stage all command ([3dd9554](https://github.com/mahyarmirrashed/yaos/commit/3dd9554e61ec950adf2da79d12508c44b5226b3b))
+
 ## [0.6.1](https://github.com/mahyarmirrashed/yaos/compare/0.6.0...0.6.1) (2023-07-22)
 
 
