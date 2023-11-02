@@ -1,5 +1,12 @@
 
 
+# [0.7.0](https://github.com/mahyarmirrashed/yaos/compare/0.6.3...0.7.0) (2023-11-02)
+
+
+### Features
+
+* add command for sync action ([a0b03ec](https://github.com/mahyarmirrashed/yaos/commit/a0b03ec667d4ae7c5fc463aea1e50bcf187f6f62))
+
 ## [0.6.3](https://github.com/mahyarmirrashed/yaos/compare/0.6.2...0.6.3) (2023-10-28)
 
 ## [0.6.2](https://github.com/mahyarmirrashed/yaos/compare/0.6.1...0.6.2) (2023-10-28)
