@@ -51,6 +51,13 @@ export default class YaosPlugin extends Plugin {
         name: "Show unmerged/conflicting files",
         callback: () => new UnmergedFilesView(this.app, this.gitService).open(),
       });
+      this.addCommand({
+        id: "sync",
+        name: "Sync your vault",
+        callback: async () => {
+          await this.handleRibbonIconClick();
+        },
+      });
       this.addRibbonIcon(
         PLUGIN_ICON,
         PLUGIN_NAME,
@@ -81,7 +88,7 @@ export default class YaosPlugin extends Plugin {
     await this.saveData(settings);
   }
 
-  private async handleRibbonIconClick(_evt: MouseEvent) {
+  private async handleRibbonIconClick(_evt?: MouseEvent) {
     if (!this.gitService || !this.gitignoreService) {
       logger.fatal("Services were not initialized.");
     } else if (!this.syncController) {
