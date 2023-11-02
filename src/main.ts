@@ -55,14 +55,10 @@ export default class YaosPlugin extends Plugin {
         id: "sync",
         name: "Sync your vault",
         callback: async () => {
-          await this.handleRibbonIconClick();
+          await this.syncVault();
         },
       });
-      this.addRibbonIcon(
-        PLUGIN_ICON,
-        PLUGIN_NAME,
-        this.handleRibbonIconClick.bind(this)
-      );
+      this.addRibbonIcon(PLUGIN_ICON, PLUGIN_NAME, this.syncVault.bind(this));
       this.addSettingTab(new YaosSettingTab(this.app, this));
 
       logger.debug("Plugin initialized.");
@@ -88,7 +84,7 @@ export default class YaosPlugin extends Plugin {
     await this.saveData(settings);
   }
 
-  private async handleRibbonIconClick(_evt?: MouseEvent) {
+  private async syncVault(_evt?: MouseEvent) {
     if (!this.gitService || !this.gitignoreService) {
       logger.fatal("Services were not initialized.");
     } else if (!this.syncController) {
