@@ -7,7 +7,7 @@ import os from "os";
 import simpleGit, { SimpleGit } from "simple-git";
 
 const GITHUB_ISSUE_LINK =
-  "https://github.com/mahyarmirrashed/yaos/issues/new/choose";
+  "https://github.com/adapole/yaos-ex/issues/new/choose";
 const SAMPLE_REPO = "git@github.com:adapole/obsidian-yaos.git";
 
 
@@ -198,7 +198,9 @@ export default class YaosSettingTab extends PluginSettingTab {
           await this.plugin.saveSettings();
         })
     );
-    new Setting(el).addText((text) =>
+    new Setting(el).setDesc(
+      "The local vault directory to link the remote repository."
+    ).addText((text) =>
     text
       .setPlaceholder("C:/Users/")
       .setValue(this.plugin.settings.basePath)
@@ -218,7 +220,7 @@ export default class YaosSettingTab extends PluginSettingTab {
           const remoteRepo =  `${this.plugin.settings.remoteRepo}`;
           await this.gitProvider.clone(remoteRepo,`${this.plugin.settings.basePath}`).fetch();
         } catch (error) {
-          
+          console.error(error)
         }
       })
   );
