@@ -18,6 +18,24 @@ export default class SyncController {
       await this.handleUnstagedChanges();
     } else {
       logger.info("No changes in vault detected for backup.");
+      try {
+        await this.gitService.gitPushUpstream()
+      } catch (error) {
+        logger.warn("Failed to push branch upstream")
+        try {
+          await this.gitService.gitPull()
+          await this.gitService.gitPushUpstream()
+  
+          // this.notifyUserAboutBackup();
+  
+          logger.success("Synced local and remote.");
+        } catch {
+          notifyUserAboutFailure("Failed to sync with remote")
+  
+          logger.error("Pull and upstream failed.");
+        }
+       
+      }
     }
 
     if (await this.gitService.isLocalAhead()) {
