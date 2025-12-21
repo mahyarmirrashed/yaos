@@ -16,7 +16,9 @@ export interface GitService {
 
   gitCommit(message?: string): Promise<void>;
   gitPullWithRebase(): Promise<void>;
-  gitPush(forcePush?: boolean): Promise<void>;
+  gitPull(branch?: string): Promise<void>;
+  gitPushUpstream(branch?: string): Promise<void>;
+  gitPush(forcePush?: boolean,branch?: string): Promise<void>;
   gitStage(...files: string[]): Promise<void>;
   gitStageAll(): Promise<void>;
 
@@ -49,12 +51,22 @@ export class SimpleGitService implements GitService {
     await this.gitProvider.pull(["--rebase"]);
   }
 
-  async gitPush(forcePush = false) {
+  async gitPull(branch = this.settings.branchName) {
+    await this.gitProvider.pull(DEFAULT_REMOTE, branch, ["--rebase"]);
+  }
+
+  async gitPushUpstream(branch = this.settings.branchName) {
+    await this.gitProvider.push(DEFAULT_REMOTE, branch, ["--set-upstream","--force"]);
+
+    logger.info(`Pushed branch upstream to ${DEFAULT_REMOTE}/${branch}.`);
+  }
+
+  async gitPush(forcePush = false, branch = this.settings.branchName) {
     const options = forcePush ? ["-f"] : [];
 
-    await this.gitProvider.push(DEFAULT_REMOTE, DEFAULT_BRANCH, options);
+    await this.gitProvider.push(DEFAULT_REMOTE, branch, options);
 
-    logger.info(`Pushed changes to ${DEFAULT_REMOTE}/${DEFAULT_BRANCH}.`);
+    logger.info(`Pushed changes to ${DEFAULT_REMOTE}/${branch}.`);
   }
 
   async gitStage(...files: string[]) {

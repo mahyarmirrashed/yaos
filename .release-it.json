@@ -1,6 +1,6 @@
 {
   "hooks": {
-    "after:bump": "yarn bump"
+    "after:bump": "npm bump"
   },
   "git": {
     "requireBranch": "main",

@@ -9,10 +9,15 @@ YAOS is a minimalist Obsidian plugin designed to provide a simple and intuitive 
 - **Single Sync Button**: YAOS provides a single sync button that handles all your Git operations. No need to worry about multiple commands or complex workflows.
 - **Conflict Resolution**: If YAOS detects conflicts between your local vault and the remote repository, it will prompt you to resolve these conflicts before proceeding with the sync.
 - **Minimalist Design**: YAOS is designed with minimalism in mind. It provides just the features that you need to manage your vault with Git, without any added unnecessary complexity.
+- **Easy Branch Switch Setting**: YAOS provides a simple branch switch setting. No need to use git commands to switch branch or for pushing new branch to remote.
 
 ## Prerequisites
 
-YAOS assumes that you have a basic understanding of Git and that you have initialized and cloned a Git repository for your Obsidian vault on your local machine.
+YAOS assumes that you have a basic understanding of Git. Check the links below to get started.
+
+- **Install Git**: download git from [this link](https://git-scm.com/downloads).
+- **Configure username and email**: follow this [guide](https://support.atlassian.com/bitbucket-cloud/docs/configure-your-dvcs-username-for-commits/) to setup git username and email for local machine.
+- **Optional (ssh-key)**: Generate ssh-key and add to github account. Refer to [docs](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent)
 
 ## Usage
 
