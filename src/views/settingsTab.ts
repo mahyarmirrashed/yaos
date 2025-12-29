@@ -10,6 +10,8 @@ const GITHUB_ISSUE_LINK =
 
 export interface YaosSettings {
   deviceName: string;
+  onLoadSync: boolean;
+  onUnloadSync: boolean;
   syncImages: boolean;
   syncAudio: boolean;
   syncVideos: boolean;
@@ -31,6 +33,8 @@ type YaosSettingOptions<K extends BooleanKeys<YaosSettings>> = {
 
 export const DEFAULT_YAOS_SETTINGS: YaosSettings = {
   deviceName: os.hostname(),
+  onLoadSync: false,
+  onUnloadSync: false,
   syncImages: false,
   syncAudio: false,
   syncVideos: false,
@@ -64,6 +68,22 @@ export default class YaosSettingTab extends PluginSettingTab {
     el.createEl("h2", { text: "General" });
     this.addDeviceNameSetting(el);
     this.addCreateIssueSetting(el);
+    this.addEventSection(el);
+  }
+
+  private addEventSection(el: HTMLElement) {
+    el.createEl("h2", { text: "Event-based Syncs" });
+    this.addToggleSetting(el, {
+      propertyName: "onLoadSync",
+      settingName: "Sync on load",
+      settingDesc: "Sync entire vault when plugin loads (application starts).",
+    });
+    this.addToggleSetting(el, {
+      propertyName: "onUnloadSync",
+      settingName: "Sync on unload",
+      settingDesc:
+        "Sync entire vault when plugin unloads (application shuts down).",
+    });
   }
 
   private addSelectiveSection(el: HTMLElement) {

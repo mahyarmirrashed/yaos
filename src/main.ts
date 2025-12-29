@@ -62,11 +62,17 @@ export default class YaosPlugin extends Plugin {
       this.addSettingTab(new YaosSettingTab(this.app, this));
 
       logger.debug("Plugin initialized.");
+
+      if (this.settings.onLoadSync) await this.syncVault();
     } else {
       notifyUserAboutFailure("Adapter type is not recognized.");
 
       logger.fatal("Logger type was not FileSystemAdapter.");
     }
+  }
+
+  async onunload() {
+    if (this.settings.onLoadSync) await this.syncVault();
   }
 
   async loadSettings() {
