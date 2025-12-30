@@ -2,6 +2,14 @@
 
 ![Obsidian Downloads](https://img.shields.io/badge/dynamic/json?logo=obsidian&color=%23483699&label=downloads&query=%24%5B%22yet-another-obsidian-synchronizer%22%5D.downloads&url=https%3A%2F%2Fraw.githubusercontent.com%2Fobsidianmd%2Fobsidian-releases%2Fmaster%2Fcommunity-plugin-stats.json)
 
+> [!WARNING]
+>
+> I'm archiving this project, not because it does not work, but because it does
+> exactly what I need it to do: sync my vault with Git from Obsidian's UI. If
+> this plugin does not serve your needs adequately, consider using
+> [FIT](https://github.com/joshuakto/fit) or using Tailscale's
+> [Taildrive](https://tailscale.com/kb/1369/taildrive) feature.
+
 YAOS is a minimalist Obsidian plugin designed to provide a simple and intuitive
 Git synchronization experience for your Obsidian vault. It's inspired by the
 simplicity of Obsidian's paid sync functionality and aims to bring that same
